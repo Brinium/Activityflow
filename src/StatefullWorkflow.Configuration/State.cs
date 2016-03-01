@@ -5,13 +5,14 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Stateless;
 
-namespace ConfigurableStatelessMachine
+namespace StatefullWorkflow.Configuration
 {
     [JsonConverter(typeof(StateConverter))]
     public class State
     {
         public string Name { get; set; }
         public string DisplayName { get; set; }
+
         public bool InitialState { get; set; }
 
         /// <summary>

@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StatefullWorkflow.Configuration;
 using Stateless;
 
-namespace ConfigurableStatelessMachine
+namespace StatefullWorkflow.Engine
 {
     public class WorkflowProcesser
     {
+        public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow, IStatePersistence statePersistence)
+        {
+            return ConfigureStateMachine(workflow, statePersistence.GetCurrentState, statePersistence.SetCurrentState);
+        }
 
-        public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow)
+        public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow, Func<State> stateAccessor, Action<State> stateMutator)
         {
             //Enforce.That(string.IsNullOrEmpty(this.step.State) == false, "WorkflowProcessor.Confgiure - step.State can not be empty");
 
-            var stateMachine = new StateMachine<State, string>(Persistance.GetCurrentState, Persistance.SetCurrentState);
+            var stateMachine = new StateMachine<State, string>(stateAccessor, stateMutator);
 
             //  Get a distinct list of states with a trigger from state configuration
             //  "State => Trigger => TargetState

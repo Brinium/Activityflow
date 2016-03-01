@@ -5,9 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace ConfigurableStatelessMachine
+namespace StatefullWorkflow.Configuration
 {
-    //[JsonConverter(typeof(WorkflowConverter))]
     public class Workflow
     {
         public string WorkflowType { get; set; }

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StatefullWorkflow.Configuration;
+using StatefullWorkflow.Engine;
 using Stateless;
 
-namespace ConfigurableStatelessMachine.Services
+namespace StatefullWorkFlow.Test.Services
 {
     public class WriteToConsoleService : IStateEventService
     {
@@ -14,7 +16,7 @@ namespace ConfigurableStatelessMachine.Services
             Console.WriteLine("Entered Source : " + entryAction.Source.Name);
             Console.WriteLine("Entered Trigger : " + entryAction.Trigger);
             Console.WriteLine("Entered Destination : " + entryAction.Destination.Name);
-            var triggers = String.Join(",", Persistance.CurrentStateMachine.PermittedTriggers);
+            var triggers = String.Join(",", Persistence.CurrentStateMachine.PermittedTriggers);
             Console.WriteLine("Permitted Triggers : " + triggers);
         }
 

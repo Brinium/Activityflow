@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using StatefullWorkflow.Configuration;
+using StatefullWorkflow.Engine;
 using Stateless;
 
-namespace ConfigurableStatelessMachine
+namespace StatefullWorkFlow.Test
 {
-    public static class Persistance
+    public static class Persistence
     {
         public static Workflow CurrentWorkflow { get; set; }
         public static StateMachine<State, string> CurrentStateMachine { get; set; }
 
         public static State CurrentState { get; private set; }
 
-        static Persistance()
+        static Persistence()
         {
 
         }

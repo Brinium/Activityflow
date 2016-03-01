@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using StatefullWorkflow.Configuration;
 using Stateless;
 
-namespace ConfigurableStatelessMachine.Services
+namespace StatefullWorkflow.Engine
 {
     public interface IStateEventService
     {

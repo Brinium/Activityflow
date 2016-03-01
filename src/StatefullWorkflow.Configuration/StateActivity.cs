@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConfigurableStatelessMachine
+namespace StatefullWorkflow.Configuration
 {
     public class StateActivity
     {
