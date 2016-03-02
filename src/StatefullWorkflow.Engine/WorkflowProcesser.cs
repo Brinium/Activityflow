@@ -10,7 +10,7 @@ namespace StatefullWorkflow.Engine
 {
     public class WorkflowProcesser
     {
-        public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow, IStatePersistence statePersistence)
+        public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow, IStateRepository statePersistence)
         {
             return ConfigureStateMachine(workflow, statePersistence.GetCurrentState, statePersistence.SetCurrentState);
         }

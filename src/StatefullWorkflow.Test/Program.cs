@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using NLog;
 using StatefullWorkflow.Configuration;
 using StatefullWorkflow.Engine;
 
@@ -12,16 +13,19 @@ namespace StatefullWorkFlow.Test
 {
     class Program
     {
+        //public static Logger logger = LogManager.GetConsole.WriteLine("Standard");
         static void Main(string[] args)
         {
-            Persistence.CurrentWorkflow = DeserializeWorkflow(@"WorkflowConfig\ExampleWorkflow.json");
-            Console.WriteLine("DeserializeWorkflow: " + Persistence.CurrentWorkflow.WorkflowType);
+            var workflow = Persistence.WorkflowAccess.GetWorkflow("RequestPromotion");
+            Persistence.CurrentWorkflowName = workflow.Name;
 
-            var ititialState = Persistence.CurrentWorkflow.States.First(s => s.InitialState);
-            Persistence.SetCurrentState(ititialState);
+            Console.WriteLine("Current Workflow: " + Persistence.WorkflowAccess.GetWorkflow(Persistence.CurrentWorkflowName).DisplayName);
+
+            var ititialState = Persistence.WorkflowAccess.GetWorkflow(Persistence.CurrentWorkflowName).States.First(s => s.InitialState);
+            Persistence.StateAccess.SetCurrentState(ititialState);
 
             Console.WriteLine("Creating State Machine. Any key to continue");
-            Persistence.CurrentStateMachine = WorkflowProcesser.ConfigureStateMachine(Persistence.CurrentWorkflow, Persistence.GetCurrentState, Persistence.SetCurrentState);
+            Persistence.CurrentStateMachine = WorkflowProcesser.ConfigureStateMachine(Persistence.WorkflowAccess.GetWorkflow(Persistence.CurrentWorkflowName), Persistence.StateAccess);
             Console.WriteLine("Current State: " + Persistence.CurrentStateMachine.State.DisplayName);
             Console.ReadKey();
 
@@ -60,27 +64,6 @@ namespace StatefullWorkFlow.Test
                 Persistence.CurrentStateMachine.Fire("Approve");
             else
                 Persistence.CurrentStateMachine.Fire("Deny");
-        }
-
-        private static Workflow DeserializeWorkflow(string source)
-        {
-            var fileInfo = new FileInfo(source);
-
-            if (fileInfo.Exists == false)
-            {
-                throw new ApplicationException("RequestPromotion.Configure - File not found");
-            }
-
-            string json = string.Empty;
-            using (StreamReader sr = fileInfo.OpenText())
-            {
-                json = sr.ReadToEnd();
-                sr.Close();
-            }
-
-            var workflow = JsonConvert.DeserializeObject<Workflow>(json);
-
-            return workflow;
         }
     }
 }

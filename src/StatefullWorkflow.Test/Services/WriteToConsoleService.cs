@@ -13,18 +13,18 @@ namespace StatefullWorkFlow.Test.Services
     {
         public void OnEntryStateAction(StateMachine<State, string>.Transition entryAction)
         {
-            Console.WriteLine("Entered Source : " + entryAction.Source.Name);
-            Console.WriteLine("Entered Trigger : " + entryAction.Trigger);
-            Console.WriteLine("Entered Destination : " + entryAction.Destination.Name);
+            NLog.LogManager.GetLogger("Standard").Info("Entered Source : " + entryAction.Source.Name);
+            NLog.LogManager.GetLogger("Standard").Info("Entered Trigger : " + entryAction.Trigger);
+            NLog.LogManager.GetLogger("Standard").Info("Entered Destination : " + entryAction.Destination.Name);
             var triggers = String.Join(",", Persistence.CurrentStateMachine.PermittedTriggers);
-            Console.WriteLine("Permitted Triggers : " + triggers);
+            NLog.LogManager.GetLogger("Standard").Info("Permitted Triggers : " + triggers);
         }
 
         public void OnExitStateAction(StateMachine<State, string>.Transition exitAction)
         {
-            Console.WriteLine("Exited Source : " + exitAction.Source.Name);
-            Console.WriteLine("Exited Trigger : " + exitAction.Trigger);
-            Console.WriteLine("Exited Destination : " + exitAction.Destination.Name);
+            NLog.LogManager.GetLogger("Standard").Info("Exited Source : " + exitAction.Source.Name);
+            NLog.LogManager.GetLogger("Standard").Info("Exited Trigger : " + exitAction.Trigger);
+            NLog.LogManager.GetLogger("Standard").Info("Exited Destination : " + exitAction.Destination.Name);
         }
     }
 }

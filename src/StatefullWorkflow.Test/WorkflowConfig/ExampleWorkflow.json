@@ -1,5 +1,6 @@
 ﻿{
-    "WorkflowType": "RequestPromotion",
+    "Name": "RequestPromotion",
+    "DisplayName": "Request Promotion",
     "States": [
         {
             "Name": "Start",
@@ -54,51 +55,75 @@
     "StateActivities": [
         {
             "State": "Start",
-            "Activities": "RequestPromotionForm"
+            "Activities": "RequestPromotionForm",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "RequestPromotionForm",
-            "Activities": "EnterDataToPromotionForm"
+            "Activities": "EnterDataToPromotionForm",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "RequestPromotionForm",
-            "Activities": "SubmitPromotionForm"
+            "Activities": "SubmitPromotionForm",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "ManagerReview",
-            "Activities": "ReviewPromotionForm"
+            "Activities": "ReviewPromotionForm",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "ManagerReview",
-            "Activities": "ManagerDenyPromotion"
+            "Activities": "ManagerDenyPromotion",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "ManagerReview",
-            "Activities": "ManagerApprovePromotion"
+            "Activities": "ManagerApprovePromotion",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "DirectorReview",
-            "Activities": "ReviewPromotionForm"
+            "Activities": "ReviewPromotionForm",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "DirectorReview",
-            "Activities": "DirectorDenyPromotion"
+            "Activities": "DirectorDenyPromotion",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "DirectorReview",
-            "Activities": "DirectorApprovePromotion"
+            "Activities": "DirectorApprovePromotion",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "PromotionDenied",
-            "Activities": "Cry"
+            "Activities": "Cry",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "Promoted",
-            "Activities": "Celebrate"
+            "Activities": "Celebrate",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         },
         {
             "State": "Promoted",
-            "Activities": "CongragulateApplicant"
+            "Activities": "CongragulateApplicant",
+			"AuthorisedRoles" : ["StandardUser","AdminUser", "BackgroundService"],
+			"AuthorisedUsers" : ["sbowman"]
         }
     ],
     "Activities": [

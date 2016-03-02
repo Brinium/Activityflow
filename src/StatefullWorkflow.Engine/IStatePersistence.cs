@@ -7,7 +7,7 @@ using StatefullWorkflow.Configuration;
 
 namespace StatefullWorkflow.Engine
 {
-    public interface IStatePersistence
+    public interface IStateRepository
     {
         State GetCurrentState();
         void SetCurrentState(State state);

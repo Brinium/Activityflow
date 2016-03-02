@@ -9,7 +9,8 @@ namespace StatefullWorkflow.Configuration
 {
     public class Workflow
     {
-        public string WorkflowType { get; set; }
+        public string Name { get; set; }
+        public string DisplayName { get; set; }
         public List<State> States { get; set; }
         public List<Trigger> Triggers { get; set; }
         public List<StateConfig> StateConfigs { get; set; }
