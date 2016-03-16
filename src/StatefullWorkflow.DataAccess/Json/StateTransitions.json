@@ -1,0 +1,44 @@
+﻿[
+    {
+		"WorkflowId" : 1,
+        "StateId": 1,
+        "TriggerId": "DesirePromotion",
+        "TargetStateId": 2
+    },
+    {
+		"WorkflowId" : 1,
+        "StateId": 2,
+        "TriggerId": "RequestInfo",
+        "TargetStateId": 3
+    },
+    {
+		"WorkflowId" : 1,
+        "StateId": 3,
+        "TriggerId": "Complete",
+        "TargetStateId": 4
+    },
+    {
+		"WorkflowId" : 1,
+        "StateId": 4,
+        "TriggerId": "Deny",
+        "TargetStateId": 6
+    },
+    {
+		"WorkflowId" : 1,
+        "StateId": 4,
+        "TriggerId": "Approve",
+        "TargetStateId": 5
+    },
+    {
+		"WorkflowId" : 1,
+        "StateId": 5,
+        "TriggerId": "Deny",
+        "TargetStateId": 6
+    },
+    {
+		"WorkflowId" : 1,
+        "StateId": 5,
+        "TriggerId": "Approve",
+        "TargetStateId": 7
+    }
+]

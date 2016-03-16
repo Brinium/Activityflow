@@ -1,0 +1,65 @@
+﻿[
+	{
+		"Id" : 1,
+		"WorkflowId" : 1,
+		"Name": "Start",
+		"DisplayName": "Start",
+		"InitialState": true,
+		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+	},
+	{
+		"Id" : 2,
+		"WorkflowId" : 1,
+		"Name": "ManagerConsult",
+		"DisplayName": "Manager Consult",
+		"InitialState": false,
+		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+	},
+	{
+		"Id" : 3,
+		"WorkflowId" : 1,
+		"Name": "RequestPromotionForm",
+		"DisplayName": "Request Promotion Form",
+		"InitialState": false,
+		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+	},
+	{
+		"Id" : 4,
+		"WorkflowId" : 1,
+		"Name": "ManagerReview",
+		"DisplayName": "Manager Review",
+		"InitialState": false,
+		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+	},
+	{
+		"Id" : 5,
+		"WorkflowId" : 1,
+		"Name": "DirectorReview",
+		"DisplayName": "Director Review",
+		"InitialState": false,
+		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+	},
+	{
+		"Id" : 6,
+		"WorkflowId" : 1,
+		"Name": "PromotionDenied",
+		"DisplayName": "Promotion Denied",
+		"InitialState": false,
+		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+	},
+	{
+		"Id" : 7,
+		"WorkflowId" : 1,
+		"Name": "Promoted",
+		"DisplayName": "Promoted",
+		"InitialState": false,
+		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+	}
+]

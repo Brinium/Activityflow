@@ -1,0 +1,32 @@
+﻿[
+	{
+		"Id" : 1,
+		"WorkflowId" : 1,
+		"Name": "DesirePromotion",
+		"DisplayName": "Desire Promotion"
+	},
+	{
+		"Id" : 2,
+		"WorkflowId" : 1,
+		"Name": "RequestInfo",
+		"DisplayName": "Request Info"
+	},
+	{
+		"Id" : 3,
+		"WorkflowId" : 1,
+		"Name": "Complete",
+		"DisplayName": "Complete"
+	},
+	{
+		"Id" : 4,
+		"WorkflowId" : 1,
+		"Name": "Approve",
+		"DisplayName": "Approve"
+	},
+	{
+		"Id" : 5,
+		"WorkflowId" : 1,
+		"Name": "Deny",
+		"DisplayName": "Deny"
+	}
+]

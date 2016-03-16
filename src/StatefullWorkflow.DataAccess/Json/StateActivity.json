@@ -1,0 +1,67 @@
+﻿[
+    {
+		"WorkflowId" : 1,
+		"StateId" : 1,
+        "ActivityId": 1
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 3,
+        "ActivityId": 2
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 3,
+        "ActivityId": 3
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 4,
+        "ActivityId": 4
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 4,
+        "ActivityId": 5
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 4,
+        "ActivityId": 6
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 5,
+        "ActivityId": 13
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 5,
+        "ActivityId": 7
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 5,
+        "ActivityId": 8
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 6,
+        "ActivityId": 10,
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 6,
+        "ActivityId": 12
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 7,
+        "ActivityId": 11
+    },
+    {
+		"WorkflowId" : 1,
+		"StateId" : 7,
+        "ActivityId": 6
+    }
+]

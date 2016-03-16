@@ -1,0 +1,80 @@
+﻿[
+	{
+		"Id" : 1,
+		"WorkflowId" : 1,
+		"Name": "RequestPromotionForm",
+		"DisplayName": "Request Promotion Form"
+	},
+	{
+		"Id" : 2,
+		"WorkflowId" : 1,
+		"Name": "EnterDataToPromotionForm",
+		"DisplayName": "Enter Data To Promotion Form"
+	},
+	{
+		"Id" : 3,
+		"WorkflowId" : 1,
+		"Name": "SubmitPromotionForm",
+		"DisplayName": "Submit Promotion Form"
+	},
+	{
+		"Id" : 4,
+		"WorkflowId" : 1,
+		"Name": "ManagerReviewPromotionForm",
+		"DisplayName": "Manager Review Promotion Form"
+	},
+	{
+		"Id" : 5,
+		"WorkflowId" : 1,
+		"Name": "ManagerDenyPromotion",
+		"DisplayName": "Manager Deny Promotion"
+	},
+	{
+		"Id" : 6,
+		"WorkflowId" : 1,
+		"Name": "ManagerApprovePromotion",
+		"DisplayName": "Manager Approve Promotion"
+	},
+	{
+		"Id" : 7,
+		"WorkflowId" : 1,
+		"Name": "DirectorDenyPromotion",
+		"DisplayName": "Director Deny Promotion"
+	},
+	{
+		"Id" : 8,
+		"WorkflowId" : 1,
+		"Name": "DirectorApprovePromotion",
+		"DisplayName": "Director Approve Promotion"
+	},
+	{
+		"Id" : 9,
+		"WorkflowId" : 1,
+		"Name": "CongragulateApplicant",
+		"DisplayName": "Congragulate Applicant"
+	},
+	{
+		"Id" : 10,
+		"WorkflowId" : 1,
+		"Name": "Cry",
+		"DisplayName": "Cry"
+	},
+	{
+		"Id" : 11,
+		"WorkflowId" : 1,
+		"Name": "Celebrate",
+		"DisplayName": "Celebrate"
+	},
+	{
+		"Id" : 12,
+		"WorkflowId" : 1,
+		"Name": "ConsoleApplicant",
+		"DisplayName": "Console Applicant"
+	},
+	{
+		"Id" : 13,
+		"WorkflowId" : 1,
+		"Name": "DirectorReviewPromotionForm",
+		"DisplayName": "Director Review Promotion Form"
+	}
+]

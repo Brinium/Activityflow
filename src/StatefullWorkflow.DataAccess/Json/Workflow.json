@@ -1,0 +1,93 @@
+﻿[
+    {
+        "Name": "RequestPromotion"
+        "DisplayName": "Request Promotion"
+        "StateConfigs": [
+            {
+                "State": "Start",
+                "Trigger": "DesirePromotion",
+                "TargetState": "ManagerConsult"
+            },
+            {
+                "State": "ManagerConsult",
+                "Trigger": "RequestInfo",
+                "TargetState": "RequestPromotionForm"
+            },
+            {
+                "State": "RequestPromotionForm",
+                "Trigger": "Complete",
+                "TargetState": "ManagerReview"
+            },
+            {
+                "State": "ManagerReview",
+                "Trigger": "Deny",
+                "TargetState": "PromotionDenied"
+            },
+            {
+                "State": "ManagerReview",
+                "Trigger": "Approve",
+                "TargetState": "DirectorReview"
+            },
+            {
+                "State": "DirectorReview",
+                "Trigger": "Deny",
+                "TargetState": "PromotionDenied"
+            },
+            {
+                "State": "DirectorReview",
+                "Trigger": "Approve",
+                "TargetState": "Promoted"
+            }
+        ],
+        "StateActivities": [
+            {
+                "State": "Start",
+                "Activities": "RequestPromotionForm"
+            },
+            {
+                "State": "RequestPromotionForm",
+                "Activities": "EnterDataToPromotionForm"
+            },
+            {
+                "State": "RequestPromotionForm",
+                "Activities": "SubmitPromotionForm"
+            },
+            {
+                "State": "ManagerReview",
+                "Activities": "ReviewPromotionForm"
+            },
+            {
+                "State": "ManagerReview",
+                "Activities": "ManagerDenyPromotion"
+            },
+            {
+                "State": "ManagerReview",
+                "Activities": "ManagerApprovePromotion"
+            },
+            {
+                "State": "DirectorReview",
+                "Activities": "ReviewPromotionForm"
+            },
+            {
+                "State": "DirectorReview",
+                "Activities": "DirectorDenyPromotion"
+            },
+            {
+                "State": "DirectorReview",
+                "Activities": "DirectorApprovePromotion"
+            },
+            {
+                "State": "PromotionDenied",
+                "Activities": "Cry"
+            },
+            {
+                "State": "Promoted",
+                "Activities": "Celebrate"
+            },
+            {
+                "State": "Promoted",
+                "Activities": "CongragulateApplicant"
+            }
+        ]
+    }
+]
