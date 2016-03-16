@@ -8,7 +8,7 @@ using StatefullWorkflow.Engine;
 using StatefullWorkFlow.Test.Database;
 using Stateless;
 
-namespace StatefullWorkFlow.Test
+namespace StatefullWorkFlow.Console
 {
     public static class Persistence
     {

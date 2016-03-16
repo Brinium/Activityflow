@@ -1,5 +1,9 @@
 ﻿{
-    "WorkflowType": "RequestPromotion",
+    "Workflows": [
+		{
+			"Name" : "RequestPromotion"
+			"DisplayName" : "Request Promotion"
+		}],
     "States": [
         {
             "Name": "Start",
@@ -49,56 +53,6 @@
             "InitialState": false,
             "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
             "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-        }
-    ],
-    "StateActivities": [
-        {
-            "State": "Start",
-            "Activities": "RequestPromotionForm"
-        },
-        {
-            "State": "RequestPromotionForm",
-            "Activities": "EnterDataToPromotionForm"
-        },
-        {
-            "State": "RequestPromotionForm",
-            "Activities": "SubmitPromotionForm"
-        },
-        {
-            "State": "ManagerReview",
-            "Activities": "ReviewPromotionForm"
-        },
-        {
-            "State": "ManagerReview",
-            "Activities": "ManagerDenyPromotion"
-        },
-        {
-            "State": "ManagerReview",
-            "Activities": "ManagerApprovePromotion"
-        },
-        {
-            "State": "DirectorReview",
-            "Activities": "ReviewPromotionForm"
-        },
-        {
-            "State": "DirectorReview",
-            "Activities": "DirectorDenyPromotion"
-        },
-        {
-            "State": "DirectorReview",
-            "Activities": "DirectorApprovePromotion"
-        },
-        {
-            "State": "PromotionDenied",
-            "Activities": "Cry"
-        },
-        {
-            "State": "Promoted",
-            "Activities": "Celebrate"
-        },
-        {
-            "State": "Promoted",
-            "Activities": "CongragulateApplicant"
         }
     ],
     "Activities": [
@@ -204,6 +158,56 @@
             "State": "DirectorReview",
             "Trigger": "Approve",
             "TargetState": "Promoted"
+        }
+    ],
+    "StateActivities": [
+        {
+            "State": "Start",
+            "Activities": "RequestPromotionForm"
+        },
+        {
+            "State": "RequestPromotionForm",
+            "Activities": "EnterDataToPromotionForm"
+        },
+        {
+            "State": "RequestPromotionForm",
+            "Activities": "SubmitPromotionForm"
+        },
+        {
+            "State": "ManagerReview",
+            "Activities": "ReviewPromotionForm"
+        },
+        {
+            "State": "ManagerReview",
+            "Activities": "ManagerDenyPromotion"
+        },
+        {
+            "State": "ManagerReview",
+            "Activities": "ManagerApprovePromotion"
+        },
+        {
+            "State": "DirectorReview",
+            "Activities": "ReviewPromotionForm"
+        },
+        {
+            "State": "DirectorReview",
+            "Activities": "DirectorDenyPromotion"
+        },
+        {
+            "State": "DirectorReview",
+            "Activities": "DirectorApprovePromotion"
+        },
+        {
+            "State": "PromotionDenied",
+            "Activities": "Cry"
+        },
+        {
+            "State": "Promoted",
+            "Activities": "Celebrate"
+        },
+        {
+            "State": "Promoted",
+            "Activities": "CongragulateApplicant"
         }
     ]
 }

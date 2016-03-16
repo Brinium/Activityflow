@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StatefullWorkflow.Configuration
+namespace StatefullWorkflow.Entities
 {
-    public class StateConfig
+    public class WorkflowStateTransition
     {
         public string State { get; set; }
         public string Trigger { get; set; }
         public string TargetState { get; set; }
 
-        public StateConfig() { }
+        public WorkflowStateTransition() { }
     }
 }

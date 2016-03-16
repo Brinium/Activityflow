@@ -1,0 +1,57 @@
+﻿[
+	{
+		"Id" : 1,
+		"Name": "RequestPromotionForm",
+		"DisplayName": "Request Promotion Form"
+	},
+	{
+		"Id" : 2,
+		"Name": "EnterDataToPromotionForm",
+		"DisplayName": "Enter Data To Promotion Form"
+	},
+	{
+		"Id" : 3,
+		"Name": "SubmitPromotionForm",
+		"DisplayName": "Submit Promotion Form"
+	},
+	{
+		"Id" : 4,
+		"Name": "ReviewPromotionForm",
+		"DisplayName": "Review Promotion Form"
+	},
+	{
+		"Id" : 5,
+		"Name": "ManagerDenyPromotion",
+		"DisplayName": "Manager Deny Promotion"
+	},
+	{
+		"Id" : 6,
+		"Name": "ManagerApprovePromotion",
+		"DisplayName": "Manager Approve Promotion"
+	},
+	{
+		"Id" : 7,
+		"Name": "DirectorDenyPromotion",
+		"DisplayName": "Director Deny Promotion"
+	},
+	{
+		"Id" : 8,
+		"Name": "DirectorApprovePromotion",
+		"DisplayName": "Director Approve Promotion"
+	},
+	{
+		"Id" : 9,
+		"Name": "CongragulateApplicant",
+		"DisplayName": "Congragulate Applicant"
+	},
+	{
+		"Id" : 10,
+		"Name": "Cry",
+		"DisplayName": "Cry"
+	},
+	{
+		"Id" : 11,
+		"Name": "Celebrate",
+		"DisplayName": "Celebrate"
+	}
+]

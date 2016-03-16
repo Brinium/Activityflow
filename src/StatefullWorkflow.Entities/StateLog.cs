@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StatefullWorkflow.Configuration
+namespace StatefullWorkflow.Entities
 {
-    public class Trigger
+    public class StateLog
     {
-        public string Name { get; set; }
     }
 }

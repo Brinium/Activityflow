@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BDDB1952-365D-45B9-8354-CD20C580ADB9}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{35D4024D-C5BC-484C-8848-6B50A514A5DE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>StatefullWorkflow.Configuration</RootNamespace>
-    <AssemblyName>StatefullWorkflow.Configuration</AssemblyName>
+    <RootNamespace>StatefullWorkFlow.Console</RootNamespace>
+    <AssemblyName>StatefullWorkFlow.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,8 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.2.3\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Stateless, Version=2.5.56.0, Culture=neutral, PublicKeyToken=93038f0927583c9a, processorArchitecture=MSIL">
@@ -47,23 +57,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activity.cs" />
+    <Compile Include="Database\WorkflowStateRepository.cs" />
+    <Compile Include="Persistance.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="State.cs" />
-    <Compile Include="StateActivity.cs" />
-    <Compile Include="StateConfig.cs" />
-    <Compile Include="StateConverter.cs" />
-    <Compile Include="Trigger.cs" />
-    <Compile Include="Workflow.cs" />
+    <Compile Include="Services\WriteToConsoleService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
-    <Content Include="WorkflowConfig\ExampleWorkflow.json" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StatefullWorkflow.Utilities\StatefullWorkflow.Utilities.csproj">
-      <Project>{149ee3fb-2b51-450e-8cb8-6c67b5260af3}</Project>
-      <Name>StatefullWorkflow.Utilities</Name>
+    <EmbeddedResource Include="WorkflowConfig\ExampleWorkflow.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StatefullWorkflow.DataAccess\StatefullWorkflow.DataAccess.csproj">
+      <Project>{24662791-98f7-45de-9eba-57b05545e5c8}</Project>
+      <Name>StatefullWorkflow.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.Engine\StatefullWorkflow.Engine.csproj">
+      <Project>{64e0b515-a847-49fe-b571-1e046b664be6}</Project>
+      <Name>StatefullWorkflow.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
+      <Project>{083f072e-3539-4a3a-8159-146e03457f32}</Project>
+      <Name>StatefullWorkflow.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

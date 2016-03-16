@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("StatefullWorkFlow.Configuration")]
+[assembly: AssemblyTitle("StatefullWorkflow.Entities")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("StatefullWorkFlow.Configuration")]
+[assembly: AssemblyProduct("StatefullWorkflow.Entities")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("df0b96bb-dead-4106-8646-c6a1733809a8")]
+[assembly: Guid("1152165d-3b72-4041-8aba-5ecc3ad69ce3")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -7,18 +7,19 @@ using StatefullWorkflow.Configuration;
 using StatefullWorkflow.Engine;
 using Stateless;
 using StatefullWorkFlow.Test.Database;
+using StatefullWorkflow.Entities;
 
 namespace StatefullWorkFlow.Test
 {
-    public class StateRepository : IStateRepository
+    public class WorkflowStateRepository : IWorkflowStatePersistence
     {
         public static State CurrentState { get; set; }
 
-        public StateRepository()
+        public WorkflowStateRepository()
         {
         }
 
-        public StateRepository(State state)
+        public WorkflowStateRepository(State state)
         {
             CurrentState = state;
         }

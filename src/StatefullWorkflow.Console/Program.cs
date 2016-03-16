@@ -9,7 +9,7 @@ using NLog;
 using StatefullWorkflow.Configuration;
 using StatefullWorkflow.Engine;
 
-namespace StatefullWorkFlow.Test
+namespace StatefullWorkFlow.Console
 {
     class Program
     {

@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Reflection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 using Stateless;
 
-namespace StatefullWorkflow.Configuration
+namespace StatefullWorkflow.Entities
 {
-    [JsonConverter(typeof(StateConverter))]
-    public class State
+    public class WorkflowState : Entity
     {
         public string Name { get; set; }
         public string DisplayName { get; set; }
-
         public bool InitialState { get; set; }
 
         /// <summary>
@@ -29,14 +24,6 @@ namespace StatefullWorkflow.Configuration
         /// </summary>
         public Action<StateMachine<State, string>.Transition> OnExitStateAction { get; set; }
 
-        public State() { }
-
-        public State(string name, string displayName, Action<StateMachine<State, string>.Transition> onEntryStateAction, Action<StateMachine<State, string>.Transition> onExitStateAction)
-        {
-            Name = name;
-            DisplayName = displayName;
-            OnEntryStateAction = onEntryStateAction;
-            OnExitStateAction = onExitStateAction;
-        }
+        public WorkflowState() { }
     }
 }

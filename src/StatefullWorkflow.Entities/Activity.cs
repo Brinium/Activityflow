@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StatefullWorkflow.Configuration
+namespace StatefullWorkflow.Entities
 {
-    public class Activity
+    public class Activity : Entity
     {
         public string Name { get; set; }
         public string DisplayName { get; set; }
+
+        public Activity() { }
     }
 }
