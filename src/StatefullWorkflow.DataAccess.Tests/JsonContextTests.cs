@@ -7,6 +7,7 @@ using NUnit.Framework;
 using StatefullWorkflow.DataAccess.Json;
 using StatefullWorkflow.Entities;
 using System.IO;
+using StatefullWorkflow.DataAccess.Test;
 
 namespace StatefullWorkflow.DataAccess.Tests
 {
@@ -27,7 +28,7 @@ namespace StatefullWorkflow.DataAccess.Tests
                 { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true } }
             };
 
-            context.SaveDataSet<TestEntity>(entities);
+            context.SaveDataSet<TestEntity, int>(entities);
 
             var file = new FileInfo(Path.Combine(connectionString, "TestEntities.json"));
             
@@ -35,12 +36,12 @@ namespace StatefullWorkflow.DataAccess.Tests
         }
 
         [Test()]
-        [DeploymentItem(@"TestData\States.json", "TestData")]
         public void GetDataSet_Test()
         {
-            var connectionString = Path.Combine(this.TestContext.DeploymentDirectory, "TestData");
+            File.Copy(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData\States.json"), Path.Combine(TestContext.CurrentContext.WorkDirectory, @"TestData\States.json"));
+            var connectionString = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestData");
             var context = new JsonContext(connectionString);
-            var entities = context.GetDataSet<State>();
+            var entities = context.GetDataSet<State, int>();
             Assert.IsTrue(entities.Count == 7);
             Assert.IsTrue(entities[1].Id == 1);
             Assert.IsTrue(entities[2].Id == 2);

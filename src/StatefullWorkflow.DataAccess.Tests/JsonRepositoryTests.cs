@@ -4,30 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using StatefullWorkflow.DataAccess.Json;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using StatefullWorkflow.DataAccess.Test;
+using NUnit.Framework;
 
 namespace StatefullWorkflow.DataAccess.Tests
 {
-    [TestClass()]
+    [TestFixture()]
     public class JsonRepositoryTests
     {
-        [TestMethod()]
+        [Test()]
         public void Get_Test()
         {
             var entities = new Dictionary<int, TestEntity>
             {
-                { 1, new TestEntity{ Id =1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false }},
-                { 2, new TestEntity{ Id =2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true }},
-                { 3, new TestEntity{ Id =3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false }},
-                { 4, new TestEntity{ Id =4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true }}
+                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false } },
+                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true } },
+                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false } },
+                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true } }
             };
 
             var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(uow => uow.GetDataSet<TestEntity>()).Returns(entities);
+            uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
 
             var testGet = repo.Get(3);
             Assert.IsNotNull(testGet);
@@ -37,21 +37,21 @@ namespace StatefullWorkflow.DataAccess.Tests
             Assert.IsNull(testGet_IsNull);
         }
 
-        [TestMethod()]
+        [Test()]
         public void All_Test()
         {
             var entities = new Dictionary<int, TestEntity>
             {
-                { 1, new TestEntity{ Id =1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false }},
-                { 2, new TestEntity{ Id =2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true }},
-                { 3, new TestEntity{ Id =3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false }},
-                { 4, new TestEntity{ Id =4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true }}
+                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false } },
+                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true } },
+                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false } },
+                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true } }
             };
 
             var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(uow => uow.GetDataSet<TestEntity>()).Returns(entities);
+            uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
 
             var testAll = repo.All().ToList();
             Assert.IsNotNull(testAll);
@@ -62,21 +62,21 @@ namespace StatefullWorkflow.DataAccess.Tests
             Assert.IsTrue(testAll[3].Id == 4);
         }
 
-        [TestMethod()]
+        [Test()]
         public void Where_Test()
         {
             var entities = new Dictionary<int, TestEntity>
             {
-                { 1, new TestEntity{ Id =1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false }},
-                { 2, new TestEntity{ Id =2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true }},
-                { 3, new TestEntity{ Id =3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false }},
-                { 4, new TestEntity{ Id =4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true }}
+                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false } },
+                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true } },
+                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false } },
+                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true } }
             };
 
             var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(uow => uow.GetDataSet<TestEntity>()).Returns(entities);
+            uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
 
             var testWhere = repo.Where(x => x.FieldB == 303 || x.FieldC == "Field_C_4").ToList();
             Assert.IsNotNull(testWhere);
@@ -85,21 +85,21 @@ namespace StatefullWorkflow.DataAccess.Tests
             Assert.IsTrue(testWhere[1].Id == 4);
         }
 
-        [TestMethod()]
+        [Test()]
         public void FirstOrDefault_Test()
         {
             var entities = new Dictionary<int, TestEntity>
             {
-                { 1, new TestEntity{ Id =1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false }},
-                { 2, new TestEntity{ Id =2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true }},
-                { 3, new TestEntity{ Id =3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false }},
-                { 4, new TestEntity{ Id =4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true }}
+                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false } },
+                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true } },
+                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false } },
+                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true } }
             };
 
             var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(uow => uow.GetDataSet<TestEntity>()).Returns(entities);
+            uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
 
             var testFirstOrDefault_NotNull = repo.FirstOrDefault(x => x.FieldB == 303 || x.FieldC == "Field_C_4");
             Assert.IsNotNull(testFirstOrDefault_NotNull);
@@ -109,22 +109,22 @@ namespace StatefullWorkflow.DataAccess.Tests
             Assert.IsNull(testFirstOrDefault_IsNull);
         }
 
-        [TestMethod()]
+        [Test()]
         public void Insert_Test()
         {
             var entities = new Dictionary<int, TestEntity>
             {
-                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false }},
-                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true }},
-                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false }},
-                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true }},
-                { 6, new TestEntity{ Id = 6, FieldA = "Field_A_6", FieldB = 606, FieldC = "Field_C_6", FieldD = false }}
+                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false } },
+                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true } },
+                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false } },
+                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true } },
+                { 6, new TestEntity{ Id = 6, FieldA = "Field_A_6", FieldB = 606, FieldC = "Field_C_6", FieldD = false } }
             };
 
             var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(uow => uow.GetDataSet<TestEntity>()).Returns(entities);
+            uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
 
             var testEntityOne = new TestEntity { FieldA = "Insert_1", FieldB = 111, FieldC = "Insert_1", FieldD = true };
             repo.Insert(testEntityOne);
@@ -145,22 +145,22 @@ namespace StatefullWorkflow.DataAccess.Tests
             Assert.IsTrue(repo.All().Count() == 7);
         }
 
-        [TestMethod()]
+        [Test()]
         public void Update_Test()
         {
             var entities = new Dictionary<int, TestEntity>
             {
-                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false }},
-                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true }},
-                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false }},
-                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true }},
-                { 6, new TestEntity{ Id = 6, FieldA = "Field_A_6", FieldB = 606, FieldC = "Field_C_6", FieldD = false }}
+                { 1, new TestEntity{ Id = 1, FieldA = "Field_A_1", FieldB = 101, FieldC = "Field_C_1", FieldD = false } },
+                { 2, new TestEntity{ Id = 2, FieldA = "Field_A_2", FieldB = 202, FieldC = "Field_C_2", FieldD = true } },
+                { 3, new TestEntity{ Id = 3, FieldA = "Field_A_3", FieldB = 303, FieldC = "Field_C_3", FieldD = false } },
+                { 4, new TestEntity{ Id = 4, FieldA = "Field_A_4", FieldB = 404, FieldC = "Field_C_4", FieldD = true } },
+                { 6, new TestEntity{ Id = 6, FieldA = "Field_A_6", FieldB = 606, FieldC = "Field_C_6", FieldD = false } }
             };
 
             var uowMock = new Mock<IUnitOfWork>();
-            uowMock.Setup(uow => uow.GetDataSet<TestEntity>()).Returns(entities);
+            uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
 
             var testEntityOne = entities[3];
             testEntityOne.FieldA = "Changed_1";

@@ -4,6 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using StatefullWorkflow.DataAccess.IO;
 using StatefullWorkflow.Entities;
+using System.Threading.Tasks;
 
 namespace StatefullWorkflow.DataAccess.Json
 {
@@ -26,19 +27,27 @@ namespace StatefullWorkflow.DataAccess.Json
 
         public bool DataSetExists<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
-            return await FileAccess.FileExists<TEntity, Tid>(ConnectionString);
+            var exists = false;
+            var task = Task.Run(async () => exists = await FileAccess.FileExists<TEntity, Tid>(ConnectionString));
+            task.Wait();
+            return exists;
         }
 
         public bool SaveDataSet<TEntity, Tid>(Dictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
         {
             var entitiesList = entities.Values.ToList();
             var json = SerializeJsonEntityArray<TEntity, Tid>(entitiesList);
-            return await FileAccess.SaveToFile<TEntity, Tid>(ConnectionString, json);
+            var saved = false;
+            var task = Task.Run(async () => saved = await FileAccess.SaveToFile<TEntity, Tid>(ConnectionString, json));
+            task.Wait();
+            return saved;
         }
 
         public Dictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
-            string json = await FileAccess.ReadFile<TEntity, Tid>(ConnectionString);
+            string json = string.Empty;
+            var task = Task.Run(() => FileAccess.ReadFile<TEntity, Tid>(ConnectionString));
+            task.Wait();
 
             var entities = DeserializeJsonEntityArray<TEntity, Tid>(json);
             var entityDic = new Dictionary<Tid, TEntity>();

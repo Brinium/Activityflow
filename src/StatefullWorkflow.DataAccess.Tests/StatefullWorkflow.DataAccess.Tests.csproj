@@ -32,9 +32,11 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.3.2.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Test.cs" />
     <Compile Include="JsonRepositoryTests.cs" />
     <Compile Include="JsonContextTests.cs" />
     <Compile Include="TestData\TestEntity.cs" />

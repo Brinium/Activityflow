@@ -49,8 +49,12 @@ namespace StatefullWorkflow.DataAccess.IO
             }
             
             var className = typeof(TEntity).Name;
-            var fileFullName = GetFileFullName(folder, className);
-            IFile file = await FileSystem.Current.GetFileFromPathAsync(fileFullName);
+            var name = GetFileName(className);
+
+            IFolder rootFolder = FileSystem.Current.LocalStorage;
+            IFolder directory = await rootFolder.CreateFolderAsync(folder, CreationCollisionOption.OpenIfExists);
+
+            IFile file = await directory.GetFileAsync(name);
 
             if (file == null)
             {
@@ -62,24 +66,29 @@ namespace StatefullWorkflow.DataAccess.IO
 
         public async Task<bool> SaveToFile<TEntity, Tid>(string folder, string contents) where TEntity : Entity<Tid> where Tid : struct
         {
-            //            try
-            //            {
-            //                var directory = new DirectoryInfo(folder);
-            //                if (!directory.Exists)
-            //                    directory.Create();
-            //                var className = typeof(TEntity).Name;
-            //                using (TextWriter writer = new StreamWriter(GetFileFullName(folder, className), false))
-            //                {
-            //                    writer.Write(contents);
-            //                    writer.Close();
-            //                }
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                //NLog.LogManager.GetLogger("Standard").Error(ex, ex.Message);
-            //                throw;
-            //            }
+            try
+            {
+                var className = typeof(TEntity).Name;
+                var name = GetFileName(className);
+                            
+                IFolder rootFolder = FileSystem.Current.LocalStorage;
+                IFolder directory = await rootFolder.CreateFolderAsync(folder, CreationCollisionOption.OpenIfExists);
+
+                IFile file = await directory.CreateFileAsync(name, CreationCollisionOption.OpenIfExists);
+                await file.WriteAllTextAsync(contents);
+            }
+            catch (Exception ex)
+            {
+                //NLog.LogManager.GetLogger("Standard").Error(ex, ex.Message);
+                throw;
+            }
             return true;
+        }
+
+        public string GetFileName(string className)
+        {
+            var name = Pluralizer.Pluralize(className);
+            return name + ".json";
         }
 
         public string GetFileFullName(string folder, string className)
