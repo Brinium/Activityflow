@@ -8,6 +8,7 @@ using StatefullWorkflow.DataAccess.Json;
 using StatefullWorkflow.Entities;
 using System.IO;
 using StatefullWorkflow.DataAccess.Test;
+using StatefullWorkflow.DataAccess.IO;
 
 namespace StatefullWorkflow.DataAccess.Tests
 {
@@ -38,7 +39,10 @@ namespace StatefullWorkflow.DataAccess.Tests
         [Test()]
         public void GetDataSet_Test()
         {
-            File.Copy(Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData\States.json"), Path.Combine(TestContext.CurrentContext.WorkDirectory, @"TestData\States.json"));
+            var sourceLocation = Path.Combine(TestContext.CurrentContext.TestDirectory, @"TestData/States.json");
+            var workingLocation = Path.Combine(TestContext.CurrentContext.WorkDirectory, @"TestData/States.json");
+            if (!File.Exists(workingLocation))
+                File.Copy(sourceLocation, workingLocation);
             var connectionString = Path.Combine(TestContext.CurrentContext.WorkDirectory, "TestData");
             var context = new JsonContext(connectionString);
             var entities = context.GetDataSet<State, int>();

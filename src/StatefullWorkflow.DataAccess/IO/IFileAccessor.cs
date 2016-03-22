@@ -14,5 +14,7 @@ namespace StatefullWorkflow.DataAccess.IO
         Task<bool> SaveToFile<TEntity, Tid>(string folder, string contents) where TEntity : Entity<Tid> where Tid : struct;
 
         Task<string> ReadFile<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct;
+
+        string JoinPaths(string partA, string partB);
     }
 }

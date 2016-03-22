@@ -19,11 +19,11 @@ namespace StatefullWorkflow.DataAccess.IO
     {
         public IPluralizer Pluralizer { get; set; }
 
-        //        public FileAccessor()
-        //        {
-        //            Pluralizer = new InflectorPluralizer();//DataEntityPluralizer();//PluralizationService.CreateService(CultureInfo.CurrentCulture);
-        //        }
-        //
+        public FileAccessor()
+        {
+            Pluralizer = new InflectorPluralizer();//DataEntityPluralizer();//PluralizationService.CreateService(CultureInfo.CurrentCulture);
+        }
+
         public async Task<bool>  FileExists<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct
         {
             if (String.IsNullOrEmpty(folder))
@@ -51,8 +51,11 @@ namespace StatefullWorkflow.DataAccess.IO
             var className = typeof(TEntity).Name;
             var name = GetFileName(className);
 
-            IFolder rootFolder = FileSystem.Current.LocalStorage;
-            IFolder directory = await rootFolder.CreateFolderAsync(folder, CreationCollisionOption.OpenIfExists);
+            IFolder directory = await FileSystem.Current.GetFolderFromPathAsync(folder);
+            if (directory == null)
+            {
+                throw new DataAccessException("File not found");
+            }
 
             IFile file = await directory.GetFileAsync(name);
 
@@ -99,6 +102,21 @@ namespace StatefullWorkflow.DataAccess.IO
             else if (folder.Contains("/"))
                 return folder + "/" + name + ".json";
             return folder + @"\" + name + ".json";
+        }
+
+        public string JoinPaths(string partA, string partB)
+        {
+            if (partA.EndsWith("/") || partA.EndsWith(@"\"))
+                return partA + partB;
+            else if (partA.Contains("/"))
+            {
+                if (partB.StartsWith("/"))
+                    return partA + partB;
+                return partA + "/" + partB;
+            }
+            if (partB.StartsWith(@"\"))
+                return partA + partB;
+            return partA + @"\" + partB;
         }
     }
 }

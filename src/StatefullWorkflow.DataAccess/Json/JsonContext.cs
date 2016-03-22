@@ -46,7 +46,7 @@ namespace StatefullWorkflow.DataAccess.Json
         public Dictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
             string json = string.Empty;
-            var task = Task.Run(() => FileAccess.ReadFile<TEntity, Tid>(ConnectionString));
+            var task = Task.Run(async () => json = await FileAccess.ReadFile<TEntity, Tid>(ConnectionString));
             task.Wait();
 
             var entities = DeserializeJsonEntityArray<TEntity, Tid>(json);
