@@ -5,7 +5,6 @@ using StatefullWorkflow.Entities;
 namespace StatefullWorkflow.DataAccess.Json
 {
     public class JsonUnitOfWork : IUnitOfWork
-
     {
         public JsonContext Context { get; set; }
 
@@ -23,19 +22,19 @@ namespace StatefullWorkflow.DataAccess.Json
                 Context = new JsonContext(connectionString);
         }
 
-        public Dictionary<int, TEntity> GetDataSet<TEntity>() where TEntity : Entity
+        public Dictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
-            return Context.GetDataSet<TEntity>();
+            return Context.GetDataSet<TEntity, Tid>();
         }
 
-        public bool TestConnectionCanOpen<TEntity>() where TEntity : Entity
+        public bool TestConnectionCanOpen<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
-            return Context.DataSetExists<TEntity>();
+            return Context.DataSetExists<TEntity, Tid>();
         }
 
-        public void SaveChanges<TEntity>(Dictionary<int, TEntity> entities) where TEntity : Entity
+        public void SaveChanges<TEntity, Tid>(Dictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
         {
-            Context.SaveDataSet<TEntity>(entities);
+            Context.SaveDataSet<TEntity, Tid>(entities);
         }
 
         public void Dispose()

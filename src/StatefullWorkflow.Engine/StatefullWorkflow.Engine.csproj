@@ -1,82 +1,63 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{64E0B515-A847-49FE-B571-1E046B664BE6}</ProjectGuid>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{3F06DA2D-AB08-490C-87DB-57CBDD160216}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StatefullWorkflow.Engine</RootNamespace>
     <AssemblyName>StatefullWorkflow.Engine</AssemblyName>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkflowProcesser.cs" />
+    <Compile Include="Step.cs" />
+    <Compile Include="WorkflowStateConverter.cs" />
+    <Compile Include="Pipeline.cs" />
+    <Compile Include="WorkflowState.cs" />
+    <Compile Include="StepPipline.cs" />
+    <Compile Include="IStateEventService.cs" />
+    <Compile Include="IStatePersistence.cs" />
+    <Compile Include="IActivity.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
     <Reference Include="Stateless">
       <HintPath>..\packages\Stateless.2.5.59.0\lib\portable-net40+sl50+win+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Stateless.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Pipeline.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IStateEventService.cs" />
-    <Compile Include="IStatePersistence.cs" />
-    <Compile Include="WorkflowState.cs" />
-    <Compile Include="Step.cs" />
-    <Compile Include="WorkflowProcesser.cs" />
-    <Compile Include="WorkflowStateConverter.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
-      <Project>{083F072E-3539-4A3A-8159-146E03457F32}</Project>
-      <Name>StatefullWorkflow.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StatefullWorkflow.Utilities\StatefullWorkflow.Utilities.csproj">
-      <Project>{149EE3FB-2B51-450E-8CB8-6C67B5260AF3}</Project>
-      <Name>StatefullWorkflow.Utilities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StatefullWorkflow.DataAccess\StatefullWorkflow.DataAccess.csproj">
-      <Project>{24662791-98F7-45DE-9EBA-57B05545E5C8}</Project>
-      <Name>StatefullWorkflow.DataAccess</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StatefullWorkflow.DataAccess\StatefullWorkflow.DataAccess.csproj">
+      <Project>{C993974A-50F9-483B-A776-B4D09AAB91A1}</Project>
+      <Name>StatefullWorkflow.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
+      <Project>{1F3634F5-C872-42AB-A594-C399FE6466EB}</Project>
+      <Name>StatefullWorkflow.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

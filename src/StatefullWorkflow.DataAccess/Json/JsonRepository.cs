@@ -7,26 +7,28 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StatefullWorkflow.Entities;
+using StatefullWorkflow.DataAccess.Exceptions;
 
 namespace StatefullWorkflow.DataAccess.Json
 {
-    public class JsonRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
+    public class JsonRepository<TEntity, Tid> : IRepository<TEntity, Tid> where TEntity : Entity<Tid> where Tid : struct
     {
         public IUnitOfWork UnitOfWork { get; set; }
 
-        public static Dictionary<int, TEntity> Entities { get; set; }
+        public Dictionary<Tid, TEntity> Entities { get; set; }
 
         public JsonRepository(IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            Entities = UnitOfWork.GetDataSet<TEntity>();
+            Entities = UnitOfWork.GetDataSet<TEntity, Tid>();
         }
 
-        public int Insert(TEntity entity)
+        public Tid? Insert(TEntity entity)
         {
-            if (entity == null) return -1;
+            if (entity == null)
+                return null;
 
-            var newId = GenerateNewId();
+            var newId = GenerateId();
             entity.Id = newId;
 
             if (!Entities.ContainsKey(newId))
@@ -40,9 +42,10 @@ namespace StatefullWorkflow.DataAccess.Json
             return entity.Id;
         }
 
-        public int Update(TEntity entity)
+        public Tid? Update(TEntity entity)
         {
-            if (entity == null) return -1;
+            if (entity == null)
+                return null;
 
             if (Entities.ContainsKey(entity.Id))
             {
@@ -55,14 +58,14 @@ namespace StatefullWorkflow.DataAccess.Json
             return entity.Id;
         }
 
-        public TEntity Get(int id)
+        public TEntity Get(Tid id)
         {
-            if(Entities.ContainsKey(id))
+            if (Entities.ContainsKey(id))
                 return Entities[id];
             return null;
         }
 
-        public void Delete(int id)
+        public void Delete(Tid id)
         {
             if (Entities.ContainsKey(id))
                 Entities.Remove(id);
@@ -81,7 +84,8 @@ namespace StatefullWorkflow.DataAccess.Json
         public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression)
         {
             var result = All().FirstOrDefault(expression);
-            if (result == null) return null;
+            if (result == null)
+                return null;
             return result;
         }
 
@@ -93,15 +97,10 @@ namespace StatefullWorkflow.DataAccess.Json
                 Entities.Remove(item.Id);
             }
         }
-        
-        private int GenerateNewId()
+
+        protected virtual Tid GenerateId()
         {
-            int id = 1;
-            while (Entities.ContainsKey(id))
-            {
-                id++;
-            }
-            return id;
+            return default(Tid);
         }
     }
 }

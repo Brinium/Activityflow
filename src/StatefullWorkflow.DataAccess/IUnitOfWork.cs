@@ -10,9 +10,13 @@ namespace StatefullWorkflow.DataAccess
     public interface IUnitOfWork
     {
         string ConnectionString { get; set; }
-        Dictionary<int, TEntity> GetDataSet<TEntity>() where TEntity : Entity;
-        bool TestConnectionCanOpen<TEntity>() where TEntity : Entity;
-        void SaveChanges<TEntity>(Dictionary<int, TEntity> entities) where TEntity : Entity;
+
+        Dictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct;
+
+        bool TestConnectionCanOpen<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct;
+
+        void SaveChanges<TEntity, Tid>(Dictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct;
+
         void Dispose();
     }
 }

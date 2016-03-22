@@ -1,90 +1,95 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Design.PluralizationServices;
+
+//using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using StatefullWorkflow.Entities;
+using StatefullWorkflow.DataAccess.Exceptions;
+
+//using PCLStorage;
+using PCLStorage;
+using System.Threading.Tasks;
 
 namespace StatefullWorkflow.DataAccess.IO
 {
     public class FileAccessor : IFileAccessor
     {
-        public PluralizationService Pluralizer { get; set; }
+        public IPluralizer Pluralizer { get; set; }
 
-        public FileAccessor()
-        {
-            Pluralizer = PluralizationService.CreateService(CultureInfo.CurrentCulture);
-        }
-
-        public bool FileExists<TEntity>(string folder) where TEntity : Entity
+        //        public FileAccessor()
+        //        {
+        //            Pluralizer = new InflectorPluralizer();//DataEntityPluralizer();//PluralizationService.CreateService(CultureInfo.CurrentCulture);
+        //        }
+        //
+        public async Task<bool>  FileExists<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct
         {
             if (String.IsNullOrEmpty(folder))
             {
-                throw new ApplicationException("A folder must be provided");
+                throw new DataAccessException("A folder must be provided");
             }
             var className = typeof(TEntity).Name;
-            var fileInfo = new FileInfo(GetFileFullName(folder, className));
-            return fileInfo.Exists;
+
+            // get hold of the file system
+            IFolder rootFolder = FileSystem.Current.LocalStorage;
+
+            // create a folder, if one does not exist already
+            var fileFullName = GetFileFullName(folder, className);
+            var exists = await rootFolder.CheckExistsAsync(fileFullName);
+            return exists == ExistenceCheckResult.FileExists;
         }
 
-        public string ReadFile<TEntity>(string folder) where TEntity : Entity
+        public async Task<string> ReadFile<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct
         {
-            var contents = string.Empty;
             if (String.IsNullOrEmpty(folder))
             {
-                throw new ApplicationException("A folder must be provided");
+                throw new DataAccessException("A folder must be provided");
             }
-
+            
             var className = typeof(TEntity).Name;
-            var fileInfo = new FileInfo(GetFileFullName(folder, className));
-            if (fileInfo.Exists == false)
+            var fileFullName = GetFileFullName(folder, className);
+            IFile file = await FileSystem.Current.GetFileFromPathAsync(fileFullName);
+
+            if (file == null)
             {
-                throw new ApplicationException("File not found");
+                throw new DataAccessException("File not found");
             }
 
-            try
-            {
-                using (StreamReader sr = fileInfo.OpenText())
-                {
-                    contents = sr.ReadToEnd();
-                    sr.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                //NLog.LogManager.GetLogger("Standard").Error(ex, ex.Message);
-                throw;
-            }
-            return contents;
+            return await file.ReadAllTextAsync();
         }
 
-        public bool SaveToFile<TEntity>(string folder, string contents) where TEntity : Entity
+        public async Task<bool> SaveToFile<TEntity, Tid>(string folder, string contents) where TEntity : Entity<Tid> where Tid : struct
         {
-            try
-            {
-                var directory = new DirectoryInfo(folder);
-                if (!directory.Exists)
-                    directory.Create();
-                var className = typeof(TEntity).Name;
-                using (TextWriter writer = new StreamWriter(GetFileFullName(folder, className), false))
-                {
-                    writer.Write(contents);
-                    writer.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                //NLog.LogManager.GetLogger("Standard").Error(ex, ex.Message);
-                throw;
-            }
+            //            try
+            //            {
+            //                var directory = new DirectoryInfo(folder);
+            //                if (!directory.Exists)
+            //                    directory.Create();
+            //                var className = typeof(TEntity).Name;
+            //                using (TextWriter writer = new StreamWriter(GetFileFullName(folder, className), false))
+            //                {
+            //                    writer.Write(contents);
+            //                    writer.Close();
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                //NLog.LogManager.GetLogger("Standard").Error(ex, ex.Message);
+            //                throw;
+            //            }
             return true;
         }
 
         public string GetFileFullName(string folder, string className)
         {
-            return Path.Combine(folder, Pluralizer.Pluralize(className) + ".json");
+            var name = Pluralizer.Pluralize(className);
+            if (folder.EndsWith("/") || folder.EndsWith(@"\"))
+                return folder + name + ".json";
+            else if (folder.Contains("/"))
+                return folder + "/" + name + ".json";
+            return folder + @"\" + name + ".json";
         }
     }
 }

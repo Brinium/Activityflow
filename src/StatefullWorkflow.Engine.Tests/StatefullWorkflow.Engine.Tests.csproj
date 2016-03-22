@@ -43,4 +43,14 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StatefullWorkflow.Engine\StatefullWorkflow.Engine.csproj">
+      <Project>{3F06DA2D-AB08-490C-87DB-57CBDD160216}</Project>
+      <Name>StatefullWorkflow.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
+      <Project>{1F3634F5-C872-42AB-A594-C399FE6466EB}</Project>
+      <Name>StatefullWorkflow.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

@@ -5,8 +5,8 @@ using System.Text;
 
 namespace StatefullWorkflow.Entities
 {
-    public class Entity
+    public class Entity<Tid> where Tid : struct
     {
-        public int Id { get; set; }
+        public Tid Id { get; set; }
     }
 }

@@ -51,6 +51,12 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PCLStorage">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\net45\PCLStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLStorage.Abstractions">
+      <HintPath>..\packages\PCLStorage.1.0.2\lib\net45\PCLStorage.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\WorkflowStateRepository.cs" />
@@ -68,20 +74,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\StatefullWorkflow.DataAccess\StatefullWorkflow.DataAccess.csproj">
-      <Project>{24662791-98F7-45DE-9EBA-57B05545E5C8}</Project>
-      <Name>StatefullWorkflow.DataAccess</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StatefullWorkflow.Engine\StatefullWorkflow.Engine.csproj">
-      <Project>{64E0B515-A847-49FE-B571-1E046B664BE6}</Project>
-      <Name>StatefullWorkflow.Engine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
-      <Project>{083F072E-3539-4A3A-8159-146E03457F32}</Project>
-      <Name>StatefullWorkflow.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -90,4 +82,18 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\StatefullWorkflow.Engine\StatefullWorkflow.Engine.csproj">
+      <Project>{3F06DA2D-AB08-490C-87DB-57CBDD160216}</Project>
+      <Name>StatefullWorkflow.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
+      <Project>{1F3634F5-C872-42AB-A594-C399FE6466EB}</Project>
+      <Name>StatefullWorkflow.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.DataAccess\StatefullWorkflow.DataAccess.csproj">
+      <Project>{C993974A-50F9-483B-A776-B4D09AAB91A1}</Project>
+      <Name>StatefullWorkflow.DataAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

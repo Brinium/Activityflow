@@ -9,8 +9,10 @@ namespace StatefullWorkflow.DataAccess.IO
 {
     public interface IFileAccessor
     {
-        bool FileExists<TEntity>(string folder) where TEntity : Entity;
-        bool SaveToFile<TEntity>(string folder, string contents) where TEntity : Entity;
-        string ReadFile<TEntity>(string folder) where TEntity : Entity;
+        Task<bool> FileExists<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct;
+
+        Task<bool> SaveToFile<TEntity, Tid>(string folder, string contents) where TEntity : Entity<Tid> where Tid : struct;
+
+        Task<string> ReadFile<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct;
     }
 }

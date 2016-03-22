@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using StatefullWorkflow.Configuration;
 using StatefullWorkflow.Engine;
 using Stateless;
-using StatefullWorkFlow.Test.Database;
+using StatefullWorkflow.DataAccess;
 using StatefullWorkflow.Entities;
 
 namespace StatefullWorkFlow.Test

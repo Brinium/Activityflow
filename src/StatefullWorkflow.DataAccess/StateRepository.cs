@@ -8,13 +8,14 @@ using StatefullWorkflow.Entities;
 
 namespace StatefullWorkflow.DataAccess
 {
-    public partial interface IStateRepository : IRepository<State>
+    public partial interface IStateRepository : IRepository<State, int>
     {
         State GetCurrentState();
+
         void SetCurrentState(State state);
     }
 
-    public class StateRepository : JsonRepository<State>, IStateRepository
+    public class StateRepository : JsonRepository<State, int>, IStateRepository
     {
         public State CurrentState { get; set; }
 
@@ -27,6 +28,16 @@ namespace StatefullWorkflow.DataAccess
             : base(unitOfWork)
         {
             CurrentState = state;
+        }
+
+        protected override int GenerateId()
+        {
+            int id = 1;
+            while (Entities.ContainsKey(id))
+            {
+                id++;
+            }
+            return id;
         }
 
         public State GetCurrentState()
