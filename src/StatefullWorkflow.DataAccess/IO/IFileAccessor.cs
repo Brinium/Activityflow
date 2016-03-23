@@ -15,6 +15,6 @@ namespace StatefullWorkflow.DataAccess.IO
 
         Task<string> ReadFile<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct;
 
-        string JoinPaths(string partA, string partB);
+        string JoinPaths(params string[] parts);
     }
 }

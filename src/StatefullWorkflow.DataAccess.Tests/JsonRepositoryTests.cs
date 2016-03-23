@@ -50,8 +50,8 @@ namespace StatefullWorkflow.DataAccess.Tests
 
             var uowMock = new Mock<IUnitOfWork>();
             uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
-
-            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
+            var unitOfWork = uowMock.Object;
+            var repo = new JsonRepository<TestEntity, int>(unitOfWork);
 
             var testAll = repo.All().ToList();
             Assert.IsNotNull(testAll);

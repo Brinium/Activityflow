@@ -73,9 +73,17 @@ namespace StatefullWorkflow.DataAccess.IO
             {
                 var className = typeof(TEntity).Name;
                 var name = GetFileName(className);
-                            
-                IFolder rootFolder = FileSystem.Current.LocalStorage;
-                IFolder directory = await rootFolder.CreateFolderAsync(folder, CreationCollisionOption.OpenIfExists);
+
+                IFolder directory = await FileSystem.Current.GetFolderFromPathAsync(folder);
+                if (directory == null)
+                {
+                    IFolder root = FileSystem.Current.LocalStorage;
+                    directory = await root.CreateFolderAsync(folder, CreationCollisionOption.OpenIfExists);
+                    if (directory == null)
+                    {
+                        throw new DataAccessException("File not found");
+                    }
+                }
 
                 IFile file = await directory.CreateFileAsync(name, CreationCollisionOption.OpenIfExists);
                 await file.WriteAllTextAsync(contents);
@@ -96,27 +104,12 @@ namespace StatefullWorkflow.DataAccess.IO
 
         public string GetFileFullName(string folder, string className)
         {
-            var name = Pluralizer.Pluralize(className);
-            if (folder.EndsWith("/") || folder.EndsWith(@"\"))
-                return folder + name + ".json";
-            else if (folder.Contains("/"))
-                return folder + "/" + name + ".json";
-            return folder + @"\" + name + ".json";
+            return JoinPaths(folder, GetFileName(className));
         }
 
-        public string JoinPaths(string partA, string partB)
+        public string JoinPaths(params string[] parts)
         {
-            if (partA.EndsWith("/") || partA.EndsWith(@"\"))
-                return partA + partB;
-            else if (partA.Contains("/"))
-            {
-                if (partB.StartsWith("/"))
-                    return partA + partB;
-                return partA + "/" + partB;
-            }
-            if (partB.StartsWith(@"\"))
-                return partA + partB;
-            return partA + @"\" + partB;
+            return PCLStorage.PortablePath.Combine(parts);
         }
     }
 }
