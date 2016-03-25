@@ -15,14 +15,14 @@ namespace StatefullWorkflow.DataAccess
     public class TriggerRepository : JsonRepository<Trigger, int>, ITriggerRepository
     {
         public TriggerRepository(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
+            : base(unitOfWork, GenerateId)
         {
         }
 
-        protected override int GenerateId()
+        protected static int GenerateId(Dictionary<int, Trigger> entities)
         {
             int id = 1;
-            while (Entities.ContainsKey(id))
+            while (entities.ContainsKey(id))
             {
                 id++;
             }

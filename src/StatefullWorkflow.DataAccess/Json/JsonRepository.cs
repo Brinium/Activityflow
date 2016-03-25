@@ -17,10 +17,13 @@ namespace StatefullWorkflow.DataAccess.Json
 
         public Dictionary<Tid, TEntity> Entities { get; set; }
 
-        public JsonRepository(IUnitOfWork unitOfWork)
+        public Func<Dictionary<Tid, TEntity>, Tid> IdGenereator { get; set; }
+
+        public JsonRepository(IUnitOfWork unitOfWork, Func<Dictionary<Tid, TEntity>, Tid> idGenerator)
         {
             UnitOfWork = unitOfWork;
             Entities = UnitOfWork.GetDataSet<TEntity, Tid>();
+            IdGenereator = idGenerator;
         }
 
         public Tid? Insert(TEntity entity)
@@ -98,9 +101,9 @@ namespace StatefullWorkflow.DataAccess.Json
             }
         }
 
-        protected virtual Tid GenerateId()
+        private Tid GenerateId()
         {
-            return default(Tid);
+            return IdGenereator(Entities);
         }
     }
 }

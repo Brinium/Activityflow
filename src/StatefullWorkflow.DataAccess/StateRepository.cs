@@ -20,20 +20,20 @@ namespace StatefullWorkflow.DataAccess
         public State CurrentState { get; set; }
 
         public StateRepository(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
+            : base(unitOfWork, GenerateId)
         {
         }
 
         public StateRepository(IUnitOfWork unitOfWork, State state)
-            : base(unitOfWork)
+            : base(unitOfWork, GenerateId)
         {
             CurrentState = state;
         }
 
-        protected override int GenerateId()
+        protected static int GenerateId(Dictionary<int, State> entities)
         {
             int id = 1;
-            while (Entities.ContainsKey(id))
+            while (entities.ContainsKey(id))
             {
                 id++;
             }

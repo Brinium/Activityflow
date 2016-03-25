@@ -15,14 +15,14 @@ namespace StatefullWorkflow.DataAccess
     public class WorkflowRepository : JsonRepository<Workflow, int>, IWorkflowRepository
     {
         public WorkflowRepository(IUnitOfWork unitOfWork)
-            : base(unitOfWork)
+            : base(unitOfWork, GenerateId)
         {
         }
 
-        protected override int GenerateId()
+        protected static int GenerateId(Dictionary<int, Workflow> entities)
         {
             int id = 1;
-            while (Entities.ContainsKey(id))
+            while (entities.ContainsKey(id))
             {
                 id++;
             }

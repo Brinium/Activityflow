@@ -13,6 +13,16 @@ namespace StatefullWorkflow.DataAccess.Tests
     [TestFixture()]
     public class JsonRepositoryTests
     {
+        private static int GenerateId(Dictionary<int, TestEntity> entities)
+        {
+            int id = 1;
+            while (entities.ContainsKey(id))
+            {
+                id++;
+            }
+            return id;
+        }
+
         [Test()]
         public void Get_Test()
         {
@@ -27,7 +37,7 @@ namespace StatefullWorkflow.DataAccess.Tests
             var uowMock = new Mock<IUnitOfWork>();
             uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object, GenerateId);
 
             var testGet = repo.Get(3);
             Assert.IsNotNull(testGet);
@@ -51,7 +61,7 @@ namespace StatefullWorkflow.DataAccess.Tests
             var uowMock = new Mock<IUnitOfWork>();
             uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
             var unitOfWork = uowMock.Object;
-            var repo = new JsonRepository<TestEntity, int>(unitOfWork);
+            var repo = new JsonRepository<TestEntity, int>(unitOfWork, GenerateId);
 
             var testAll = repo.All().ToList();
             Assert.IsNotNull(testAll);
@@ -76,7 +86,7 @@ namespace StatefullWorkflow.DataAccess.Tests
             var uowMock = new Mock<IUnitOfWork>();
             uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object, GenerateId);
 
             var testWhere = repo.Where(x => x.FieldB == 303 || x.FieldC == "Field_C_4").ToList();
             Assert.IsNotNull(testWhere);
@@ -99,7 +109,7 @@ namespace StatefullWorkflow.DataAccess.Tests
             var uowMock = new Mock<IUnitOfWork>();
             uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object, GenerateId);
 
             var testFirstOrDefault_NotNull = repo.FirstOrDefault(x => x.FieldB == 303 || x.FieldC == "Field_C_4");
             Assert.IsNotNull(testFirstOrDefault_NotNull);
@@ -124,7 +134,7 @@ namespace StatefullWorkflow.DataAccess.Tests
             var uowMock = new Mock<IUnitOfWork>();
             uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object, GenerateId);
 
             var testEntityOne = new TestEntity { FieldA = "Insert_1", FieldB = 111, FieldC = "Insert_1", FieldD = true };
             repo.Insert(testEntityOne);
@@ -160,7 +170,7 @@ namespace StatefullWorkflow.DataAccess.Tests
             var uowMock = new Mock<IUnitOfWork>();
             uowMock.Setup(uow => uow.GetDataSet<TestEntity, int>()).Returns(entities);
 
-            var repo = new JsonRepository<TestEntity, int>(uowMock.Object);
+            var repo = new JsonRepository<TestEntity, int>(uowMock.Object, GenerateId);
 
             var testEntityOne = entities[3];
             testEntityOne.FieldA = "Changed_1";
