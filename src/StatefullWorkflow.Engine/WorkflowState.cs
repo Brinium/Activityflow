@@ -4,13 +4,9 @@ using Stateless;
 
 namespace StatefullWorkflow.Entities
 {
-    public class WorkflowState : Entity<int>
+    public class InstanceState
     {
         public State State { get; set; }
-
-        public string DisplayName { get; set; }
-
-        public bool InitialState { get; set; }
 
         public Func<bool> IsFinished { get; set; }
 
@@ -28,7 +24,7 @@ namespace StatefullWorkflow.Entities
         /// </summary>
         public Action<StateMachine<State, string>.Transition> OnExitStateAction { get; set; }
 
-        public WorkflowState()
+        public InstanceState()
         {
         }
     }

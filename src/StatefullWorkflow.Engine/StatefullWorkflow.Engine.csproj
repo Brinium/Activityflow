@@ -30,16 +30,17 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="InstanceStatePersistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WorkflowInstance.cs" />
-    <Compile Include="WorkflowProcesser_Old.cs" />
-    <Compile Include="Step.cs" />
-    <Compile Include="Pipeline.cs" />
+    <Compile Include="InstanceManager.cs" />
+    <Compile Include="WorkflowProcesser.cs" />
+    <Compile Include="OLD\WorkflowProcesser_Old.cs" />
+    <Compile Include="OLD\Step.cs" />
+    <Compile Include="OLD\Pipeline.cs" />
     <Compile Include="WorkflowState.cs" />
-    <Compile Include="StepPipline.cs" />
+    <Compile Include="OLD\StepPipline.cs" />
     <Compile Include="IStateEventService.cs" />
-    <Compile Include="IStatePersistence.cs" />
-    <Compile Include="IActivity.cs" />
+    <Compile Include="OLD\IActivity.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
@@ -58,6 +59,10 @@
     <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
       <Project>{1F3634F5-C872-42AB-A594-C399FE6466EB}</Project>
       <Name>StatefullWorkflow.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.Utilities\StatefullWorkflow.Utilities.csproj">
+      <Project>{638900f7-4cd6-49a1-9764-4e271cc9866c}</Project>
+      <Name>StatefullWorkflow.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -33,10 +33,10 @@ namespace StatefullWorkflow.DataAccess.IO
             var className = typeof(TEntity).Name;
 
             // get hold of the file system
-            IFolder rootFolder = FileSystem.Current.LocalStorage;
+            var rootFolder = await FileSystem.Current.GetFolderFromPathAsync(folder);
 
             // create a folder, if one does not exist already
-            var fileFullName = GetFileFullName(folder, className);
+            var fileFullName = GetFileName(className);
             var exists = await rootFolder.CheckExistsAsync(fileFullName);
             return exists == ExistenceCheckResult.FileExists;
         }

@@ -11,9 +11,9 @@ namespace StatefullWorkflow.DataAccess
 {
     public partial interface IWorkflowInstanceRepository : IRepository<WorkflowInstance, int>
     {
-        State GetCurrentState();
+        State GetCurrentState(int instanceId);
 
-        void SetCurrentState(State state);
+        void SetCurrentState(int instanceId, State state);
     }
 
     public class WorkflowInstanceRepository : JsonRepository<WorkflowInstance, int>, IWorkflowInstanceRepository
@@ -36,17 +36,20 @@ namespace StatefullWorkflow.DataAccess
 
         private StateRepository StateRepo { get; set; }
 
-        public State GetCurrentState(int workflowInstanceId)
+        public State GetCurrentState(int instanceId)
         {
-            var instance = Get(workflowInstanceId);
-            return StateRepo.Get(instance.Id);
+            var instance = Get(instanceId);
+            return StateRepo.Get(instance.CurrentStateId);
         }
 
-        public void SetCurrentState(int workflowInstanceId, State state)
+        public void SetCurrentState(int instanceId, State state)
         {
-            var instance = Get(workflowInstanceId);
-            instance.CurrentStateId = state.Id;
-            Update(instance);
+            var instance = Get(instanceId);
+            if (instance != null)
+            {
+                instance.CurrentStateId = state.Id;
+                Update(instance);
+            }
         }
     }
 }

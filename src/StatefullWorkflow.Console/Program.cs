@@ -23,19 +23,17 @@ namespace StatefullWorkFlow.Console
             var workflow = workflowRepo.Get(1);
             //Persistence.CurrentWorkflowName = workflow.Name;
 
-            System.Console.WriteLine("Current Workflow: " + Persistence.WorkflowAccess.GetWorkflow(Persistence.CurrentWorkflowName).DisplayName);
+            System.Console.WriteLine("Current Workflow: " + workflow.DisplayName);
 
-            var ititialState = Persistence.WorkflowAccess.GetWorkflow(Persistence.CurrentWorkflowName).States.First(s => s.InitialState);
-            Persistence.StateAccess.SetCurrentState(ititialState);
-
+            Persistence.CurrentInstanceManager = WorkflowProcesser.CreateWorkflowManager(workflow, unitOfWork);
+            
             System.Console.WriteLine("Creating State Machine. Any key to continue");
-            Persistence.CurrentStateMachine = WorkflowInstance.ConfigureStateMachine(Persistence.WorkflowAccess.GetWorkflow(Persistence.CurrentWorkflowName), Persistence.StateAccess);
-            System.Console.WriteLine("Current State: " + Persistence.CurrentStateMachine.State.DisplayName);
+            System.Console.WriteLine("Current State: " + Persistence.CurrentInstanceManager.StateMachine.State.DisplayName);
             System.Console.ReadKey();
 
-            while (Persistence.CurrentStateMachine.State.Name != "Promoted" && Persistence.CurrentStateMachine.State.Name != "PromotionDenied")
+            while (Persistence.CurrentInstanceManager.StateMachine.State.DisplayName != "Promoted" && Persistence.CurrentInstanceManager.StateMachine.State.DisplayName != "PromotionDenied")
             {
-                if (Persistence.CurrentStateMachine.PermittedTriggers.Any(t => t == "Approve" || t == "Deny"))
+                if (Persistence.CurrentInstanceManager.StateMachine.PermittedTriggers.Any(t => t == "Approve" || t == "Deny"))
                 {
                     ChangeYesNoTriggerState();
                 }
@@ -51,23 +49,23 @@ namespace StatefullWorkFlow.Console
 
         private static void ChangeSingleTriggerState()
         {
-            string trigger = Persistence.CurrentStateMachine.PermittedTriggers.First();
-            System.Console.WriteLine("Current State: " + Persistence.CurrentStateMachine.State.DisplayName);
+            string trigger = Persistence.CurrentInstanceManager.StateMachine.PermittedTriggers.First();
+            System.Console.WriteLine("Current State: " + Persistence.CurrentInstanceManager.StateMachine.State.DisplayName);
             System.Console.WriteLine("Fire trigger:\"" + trigger + "\" press any key");
             System.Console.ReadKey();
-            Persistence.CurrentStateMachine.Fire(trigger);
+            Persistence.CurrentInstanceManager.StateMachine.Fire(trigger);
         }
 
         private static void ChangeYesNoTriggerState()
         {
-            System.Console.WriteLine("Current State: " + Persistence.CurrentStateMachine.State.Name);
+            System.Console.WriteLine("Current State: " + Persistence.CurrentInstanceManager.StateMachine.State.DisplayName);
             System.Console.WriteLine("Fire trigger: [A]pprove");
             System.Console.WriteLine("Fire trigger: [D]eny");
             var key = System.Console.ReadKey();
             if (key.Key == ConsoleKey.A)
-                Persistence.CurrentStateMachine.Fire("Approve");
+                Persistence.CurrentInstanceManager.StateMachine.Fire("Approve");
             else
-                Persistence.CurrentStateMachine.Fire("Deny");
+                Persistence.CurrentInstanceManager.StateMachine.Fire("Deny");
         }
     }
 }
