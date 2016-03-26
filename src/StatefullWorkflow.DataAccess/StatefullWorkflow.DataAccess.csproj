@@ -41,30 +41,37 @@
     <Compile Include="Json\JsonContext.cs" />
     <Compile Include="Json\JsonRepository.cs" />
     <Compile Include="Json\JsonUnitOfWork.cs" />
+    <Compile Include="StateTransitionRepository.cs" />
+    <Compile Include="StateActivityRepository.cs" />
     <Compile Include="StateRepository.cs" />
     <Compile Include="ActivityRepository.cs" />
+    <Compile Include="WorkflowInstanceRepository.cs" />
     <Compile Include="WorkflowRepository.cs" />
-    <Compile Include="TriggerRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="PagedResult.cs" />
     <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="Json\StateConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
-    <None Include="Json\Activities.json" />
-    <None Include="Json\StateActivity.json" />
-    <None Include="Json\StateTransitions.json" />
-    <None Include="Json\States.json" />
-    <None Include="Json\TestData.json" />
-    <None Include="Json\Triggers.json" />
-    <None Include="Json\Workflow.json" />
-    <None Include="Json\Workflows.json" />
+    <None Include="Json\Data\Activities.json" />
+    <None Include="Json\Data\StateActivities.json" />
+    <None Include="Json\Data\StateTransitions.json" />
+    <None Include="Json\Data\States.json" />
+    <None Include="Json\Data\TestData.json" />
+    <None Include="Json\Data\Triggers.json" />
+    <None Include="Json\Data\Workflow.json" />
+    <None Include="Json\Data\Workflows.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StatefullWorkflow.Entities\StatefullWorkflow.Entities.csproj">
       <Project>{1F3634F5-C872-42AB-A594-C399FE6466EB}</Project>
       <Name>StatefullWorkflow.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StatefullWorkflow.Utilities\StatefullWorkflow.Utilities.csproj">
+      <Project>{638900f7-4cd6-49a1-9764-4e271cc9866c}</Project>
+      <Name>StatefullWorkflow.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

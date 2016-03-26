@@ -8,18 +8,18 @@ using StatefullWorkflow.Entities;
 
 namespace StatefullWorkflow.DataAccess
 {
-    public partial interface ITriggerRepository : IRepository<Trigger, int>
+    public partial interface IStateTransitionRepository : IRepository<StateTransition, int>
     {
     }
 
-    public class TriggerRepository : JsonRepository<Trigger, int>, ITriggerRepository
+    public class StateTransitionRepository : JsonRepository<StateTransition, int>, IStateTransitionRepository
     {
-        public TriggerRepository(IUnitOfWork unitOfWork)
+        public StateTransitionRepository(IUnitOfWork unitOfWork)
             : base(unitOfWork, GenerateId)
         {
         }
 
-        protected static int GenerateId(Dictionary<int, Trigger> entities)
+        protected static int GenerateId(Dictionary<int, StateTransition> entities)
         {
             int id = 1;
             while (entities.ContainsKey(id))

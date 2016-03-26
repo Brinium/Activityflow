@@ -14,15 +14,26 @@ namespace StatefullWorkflow.DataAccess.Json
 
         public string ConnectionString { get; set; }
 
+        public List<JsonConverter> Converters { get; set; }
+
         public JsonContext()
         {
             FileAccess = new FileAccessor();
+            Converters = new List<JsonConverter>();
         }
 
         public JsonContext(string connectionString)
         {
             FileAccess = new FileAccessor();
             ConnectionString = connectionString;
+            Converters = new List<JsonConverter>();
+        }
+
+        public JsonContext(string connectionString, List<JsonConverter> converters)
+        {
+            FileAccess = new FileAccessor();
+            ConnectionString = connectionString;
+            Converters = converters;
         }
 
         public bool DataSetExists<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
@@ -63,7 +74,11 @@ namespace StatefullWorkflow.DataAccess.Json
 
         public string SerializeJsonEntityArray<TEntity, Tid>(List<TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
         {
-            var json = JsonConvert.SerializeObject(entities);
+            var json = string.Empty;
+            if(Converters != null && Converters.Count > 0)
+                json = JsonConvert.SerializeObject(entities, Converters.ToArray());
+            else
+                json = JsonConvert.SerializeObject(entities);
             return json;
         }
 

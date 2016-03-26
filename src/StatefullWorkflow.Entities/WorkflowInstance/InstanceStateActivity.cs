@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace StatefullWorkflow.Entities
 {
-    public class WorkflowStateActivity
+    public class InstanceStateActivity
     {
-        public string State { get; set; }
-        public string Activity { get; set; }
+        public int WorkflowInstanceId { get; set; }
+        public int StateId { get; set; }
+        public int ActivityId { get; set; }
         public List<string> AuthorisedRoles { get; set; }
         public List<string> AuthorisedUsers { get; set; }
 
-        public WorkflowStateActivity() { }
+        public InstanceStateActivity() { }
     }
 }

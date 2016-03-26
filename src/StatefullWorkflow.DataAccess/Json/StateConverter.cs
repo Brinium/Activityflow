@@ -8,16 +8,16 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using StatefullWorkflow.Entities;
-using StatefullWorkflow.Utilities;
 using Stateless;
+using StatefullWorkflow.Utilities;
 
-namespace StatefullWorkflow.DataAccess.JSON
+namespace StatefullWorkflow.DataAccess.Json
 {
-    public class WorkflowStateConverter : CustomCreationConverter<WorkflowState>
+    public class StateConverter : CustomCreationConverter<State>
     {
-        public override WorkflowState Create(Type objectType)
+        public override State Create(Type objectType)
         {
-            return new WorkflowState();
+            return new State();
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
@@ -30,25 +30,21 @@ namespace StatefullWorkflow.DataAccess.JSON
             foreach (var prop in jObject)
             {
 
-                if (prop.Key == "Name")
-                {
-                    target.Name = (string)prop.Value;
-                }
-                else if (prop.Key == "DisplayName")
+                if (prop.Key == "DisplayName")
                 {
                     target.DisplayName = (string)prop.Value;
                 }
-                else if (prop.Key == "InitialState")
+                else if (prop.Key == "WorkflowId")
                 {
-                    target.InitialState = (bool)prop.Value;
+                    target.WorkflowId = (int)prop.Value;
                 }
                 else if (prop.Key == "OnEntryStateAction")
                 {
-                    target.OnEntryStateAction = ReflectionHelper.GetHandlerByName<StateMachine<State, string>.Transition>((string)prop.Value);
+                    target.OnEntryStateAction = (string)prop.Value; //ReflectionHelper.GetHandlerByName<StateMachine<State, string>.Transition>((string)prop.Value);
                 }
                 else if (prop.Key == "OnExitStateAction")
                 {
-                    target.OnExitStateAction = ReflectionHelper.GetHandlerByName<StateMachine<State, string>.Transition>((string)prop.Value);
+                    target.OnExitStateAction = (string)prop.Value; //ReflectionHelper.GetHandlerByName<StateMachine<State, string>.Transition>((string)prop.Value);
                 }
             }
 

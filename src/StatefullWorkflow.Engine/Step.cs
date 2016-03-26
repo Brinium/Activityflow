@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StatefullWorkflow.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,11 +15,12 @@ namespace StatefullWorkflow.Engine
     {
         #region Properties
 
-        public string WorkflowInstanceId { get; set; }
-        public string WorkflowId { get; set; }
+        public int WorkflowInstanceId { get; set; }
+        public int WorkflowId { get; set; }
         public string StepId { get; set; }
-        public string State { get; set; }
-        public string PreviousState { get; set; }
+        public State State { get; set; }
+        public State PreviousState { get; set; }
+        public ICollection<Activity> Activities { get; set; }
         public string Answer { get; set; }
         public DateTime Created { get; set; }
         public string AnsweredBy { get; set; }
@@ -32,27 +34,13 @@ namespace StatefullWorkflow.Engine
 
         #region Constructors
 
-        public Step()
-            : this(string.Empty, string.Empty, string.Empty, string.Empty,
-                   string.Empty, new DateTime(), string.Empty, string.Empty,
-                    new Dictionary<string, object>())
-        { }
-
-        public Step(string workflowInstanceId, string stepId, string state, string previousState,
-                        string answer, DateTime created, string answeredBy, string participants,
-                        Dictionary<string, object> parameters)
+        public Step(int workflowInstanceId, int workflowId, State state)
         {
             this.WorkflowInstanceId = workflowInstanceId;
-            this.StepId = stepId;
+            this.WorkflowId = workflowId;
             this.State = state;
-            this.PreviousState = previousState;
-            this.Answer = answer;
-            this.Created = created;
-            this.AnsweredBy = answeredBy;
-            this.Participants = participants;
 
             this.ErrorList = new List<string>();
-            this.Parameters = parameters;
         }
 
         #endregion

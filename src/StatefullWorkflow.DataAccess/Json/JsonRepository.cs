@@ -101,6 +101,11 @@ namespace StatefullWorkflow.DataAccess.Json
             }
         }
 
+        public void SaveChanges()
+        {
+            UnitOfWork.SaveChanges(Entities);
+        }
+
         private Tid GenerateId()
         {
             return IdGenereator(Entities);
