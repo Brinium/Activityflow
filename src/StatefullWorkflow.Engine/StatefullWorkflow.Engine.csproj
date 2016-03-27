@@ -8,8 +8,10 @@
     <OutputType>Library</OutputType>
     <RootNamespace>StatefullWorkflow.Engine</RootNamespace>
     <AssemblyName>StatefullWorkflow.Engine</AssemblyName>
-    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,14 +46,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>
-    <Reference Include="Stateless">
-      <HintPath>..\packages\Stateless.2.5.59.0\lib\portable-net40+sl50+win+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Stateless.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\StatefullWorkflow.DataAccess\StatefullWorkflow.DataAccess.csproj">
       <Project>{C993974A-50F9-483B-A776-B4D09AAB91A1}</Project>
       <Name>StatefullWorkflow.DataAccess</Name>
@@ -64,5 +58,13 @@
       <Project>{638900f7-4cd6-49a1-9764-4e271cc9866c}</Project>
       <Name>StatefullWorkflow.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Stateless\Stateless.csproj">
+      <Project>{a15eec02-60ec-4705-a58b-a6ecd55a9628}</Project>
+      <Name>Stateless</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="project.json" />
+    <None Include="project.lock.json" />
   </ItemGroup>
 </Project>

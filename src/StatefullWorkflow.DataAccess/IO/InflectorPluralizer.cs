@@ -1,15 +1,16 @@
 ﻿using System.Globalization;
-using NsInflector = Inflector;
+using Inflector;
+//using NsInflector = Inflector;
 
 namespace StatefullWorkflow.DataAccess
 {
     public class InflectorPluralizer : IPluralizer
     {
-        public NsInflector.Inflector PluralizerService { get; set; }
+        public Inflector.Inflector PluralizerService { get; set; }
 
         public InflectorPluralizer()
         {
-            PluralizerService = new NsInflector.Inflector(CultureInfo.CurrentCulture);
+            PluralizerService = new Inflector.Inflector(CultureInfo.CurrentCulture);
         }
 
         public string Pluralize(string word)

@@ -26,10 +26,17 @@ namespace StatefullWorkFlow.Console
             System.Console.WriteLine("Current Workflow: " + workflow.DisplayName);
 
             Persistence.CurrentInstanceManager = WorkflowProcesser.CreateWorkflowManager(workflow, unitOfWork);
-            
+
+            var dotGraph = Persistence.CurrentInstanceManager.StateMachine.ToDotGraph();
+
+
             System.Console.WriteLine("Creating State Machine. Any key to continue");
             System.Console.WriteLine("Current State: " + Persistence.CurrentInstanceManager.StateMachine.State.DisplayName);
             System.Console.ReadKey();
+
+            var canFire = Persistence.CurrentInstanceManager.StateMachine.CanFire("DesirePromotion");
+            var state = Persistence.CurrentInstanceManager.StateMachine.State;
+            var triggers = Persistence.CurrentInstanceManager.StateMachine.PermittedTriggers.ToList();
 
             while (Persistence.CurrentInstanceManager.StateMachine.State.DisplayName != "Promoted" && Persistence.CurrentInstanceManager.StateMachine.State.DisplayName != "PromotionDenied")
             {
@@ -49,7 +56,7 @@ namespace StatefullWorkFlow.Console
 
         private static void ChangeSingleTriggerState()
         {
-            string trigger = Persistence.CurrentInstanceManager.StateMachine.PermittedTriggers.First();
+            string trigger = Persistence.CurrentInstanceManager.StateMachine.PermittedTriggers.FirstOrDefault();
             System.Console.WriteLine("Current State: " + Persistence.CurrentInstanceManager.StateMachine.State.DisplayName);
             System.Console.WriteLine("Fire trigger:\"" + trigger + "\" press any key");
             System.Console.ReadKey();

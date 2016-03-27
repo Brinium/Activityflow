@@ -14,14 +14,14 @@ namespace StatefullWorkflow.Engine
     {
         public static InstanceManager CreateWorkflowManager(Workflow workflow, IUnitOfWork unitOfWork)
         {
-            Enforce.ArgumentNotNull(workflow, "workflow");
-            Enforce.ArgumentNotNull(unitOfWork, "unitOfWork");
-            
+            Enforce.ArgumentNotNull(workflow, nameof(workflow));
+            Enforce.ArgumentNotNull(unitOfWork, nameof(unitOfWork));
+
             var instance = new WorkflowInstance { WorkflowId = workflow.Id, CurrentStateId = workflow.StartState };
             var repo = new WorkflowInstanceRepository(unitOfWork);
             var id = repo.Insert(instance);
-            
-            if(id.HasValue)
+
+            if (id.HasValue)
             {
                 repo.SaveChanges();
                 var statePersistance = new InstanceStatePersistence(instance.Id, unitOfWork);
@@ -33,9 +33,9 @@ namespace StatefullWorkflow.Engine
 
         public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow, InstanceStatePersistence statePersistance, IUnitOfWork unitOfWork)
         {
-            Enforce.ArgumentNotNull(workflow, "workflow");
-            Enforce.ArgumentNotNull(statePersistance, "statePersistance");
-            Enforce.ArgumentNotNull(unitOfWork, "unitOfWork");
+            Enforce.ArgumentNotNull(workflow, nameof(workflow));
+            Enforce.ArgumentNotNull(statePersistance, nameof(statePersistance));
+            Enforce.ArgumentNotNull(unitOfWork, nameof(unitOfWork));
 
             var stateMachine = new StateMachine<State, string>(statePersistance.GetCurrentState, statePersistance.SetCurrentState);
 
@@ -44,21 +44,19 @@ namespace StatefullWorkflow.Engine
             var stateRepo = new StateRepository(unitOfWork);
             var transitionRepo = new StateTransitionRepository(unitOfWork);
 
-            var states = stateRepo.Where(s => s.WorkflowId == workflow.Id).ToList();
+            var states = transitionRepo.Where(t => t.WorkflowId == workflow.Id).Select(t => stateRepo.Get(t.StateId)).Distinct().ToList();
             //var transitions = transitionRepo.Where(s => s.WorkflowId == workflow.Id).ToList();
 
             //  Assigning triggers to states
             foreach (var state in states)
             {
-                var triggers = transitionRepo.Where(trans => trans.StateId == state.Id).ToList();
+                var transitions = transitionRepo.Where(t => t.StateId == state.Id).Select(t => new { Trigger = t.Trigger, TargetState = stateRepo.Get(t.TargetStateId) }).ToList();
 
-                foreach (var trig in triggers)
+                foreach (var tran in transitions)
                 {
-                    var targetState = stateRepo.Get(trig.TargetStateId);
-                    if (targetState != null)
+                    if (tran.TargetState != null)
                     {
-                        stateMachine.Configure(state)
-                            .Permit(trig.Trigger, targetState);
+                        stateMachine.Configure(state).Permit(tran.Trigger, tran.TargetState);
                     }
                 }
             }

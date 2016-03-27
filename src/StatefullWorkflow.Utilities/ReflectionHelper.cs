@@ -26,10 +26,11 @@ namespace StatefullWorkflow.Utilities
                     if (type != null)
                     {
                         object newInstance = Activator.CreateInstance(type);
-                        //MethodInfo method = type.GetMethod(names[2], BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+                        MethodInfo method = type.GetMethod(names[2], BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
 
+                        action = (Action<T>)method.CreateDelegate(typeof(Action<T>), newInstance);
                         // Insert appropriate check for method == null here
-                        //action = (Action<T>)Delegate.CreateDelegate(typeof(Action<T>), newInstance, method);
+                        //action = (Action<T>)MethodInfo.CreateDelegate(typeof(Action<T>), newInstance, method);
                     }
                     //}
                 }
