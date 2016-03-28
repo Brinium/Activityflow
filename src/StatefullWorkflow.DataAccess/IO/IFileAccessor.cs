@@ -13,6 +13,8 @@ namespace StatefullWorkflow.DataAccess.IO
 
         Task<bool> SaveToFile<TEntity, Tid>(string folder, string contents) where TEntity : Entity<Tid> where Tid : struct;
 
+        Task<bool> SaveToFile(string folder, string className, string contents);
+
         Task<string> ReadFile<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct;
 
         string JoinPaths(params string[] parts);

@@ -22,7 +22,7 @@ namespace StatefullWorkflow.DataAccess.IO
             Pluralizer = new InflectorPluralizer();//DataEntityPluralizer();//PluralizationService.CreateService(CultureInfo.CurrentCulture);
         }
 
-        public async Task<bool>  FileExists<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct
+        public async Task<bool> FileExists<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct
         {
             if (String.IsNullOrEmpty(folder))
             {
@@ -45,7 +45,7 @@ namespace StatefullWorkflow.DataAccess.IO
             {
                 throw new DataAccessException("A folder must be provided");
             }
-            
+
             var className = typeof(TEntity).Name;
             var name = GetFileName(className);
 
@@ -67,9 +67,14 @@ namespace StatefullWorkflow.DataAccess.IO
 
         public async Task<bool> SaveToFile<TEntity, Tid>(string folder, string contents) where TEntity : Entity<Tid> where Tid : struct
         {
+            var className = typeof(TEntity).Name;
+            return await SaveToFile(folder, className, contents);
+        }
+
+        public async Task<bool> SaveToFile(string folder, string className, string contents)
+        {
             try
             {
-                var className = typeof(TEntity).Name;
                 var name = GetFileName(className);
 
                 IFolder directory = await FileSystem.Current.GetFolderFromPathAsync(folder);

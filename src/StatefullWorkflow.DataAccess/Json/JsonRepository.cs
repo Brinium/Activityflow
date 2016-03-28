@@ -15,14 +15,14 @@ namespace StatefullWorkflow.DataAccess.Json
     {
         public IUnitOfWork UnitOfWork { get; set; }
 
-        public Dictionary<Tid, TEntity> Entities { get; set; }
+        public IDictionary<Tid, TEntity> Entities { get; set; }
 
-        public Func<Dictionary<Tid, TEntity>, Tid> IdGenereator { get; set; }
+        public Func<IDictionary<Tid, TEntity>, Tid> IdGenereator { get; set; }
 
-        public JsonRepository(IUnitOfWork unitOfWork, Func<Dictionary<Tid, TEntity>, Tid> idGenerator)
+        public JsonRepository(IUnitOfWork unitOfWork, Func<IDictionary<Tid, TEntity>, Tid> idGenerator)
         {
             UnitOfWork = unitOfWork;
-            Entities = UnitOfWork.GetDataSet<TEntity, Tid>();
+            Entities = UnitOfWork.Set<TEntity, Tid>();
             IdGenereator = idGenerator;
         }
 
@@ -100,12 +100,7 @@ namespace StatefullWorkflow.DataAccess.Json
                 Entities.Remove(item.Id);
             }
         }
-
-        public void SaveChanges()
-        {
-            UnitOfWork.SaveChanges(Entities);
-        }
-
+        
         private Tid GenerateId()
         {
             return IdGenereator(Entities);

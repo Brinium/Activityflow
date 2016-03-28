@@ -29,7 +29,7 @@ namespace StatefullWorkflow.Engine
         {
             var repo = new WorkflowInstanceRepository(UnitOfWork);
             repo.SetCurrentState(InstanceId, state);
-            repo.SaveChanges();
+            UnitOfWork.SaveChanges();
         }
     }
 }

@@ -23,7 +23,12 @@ namespace StatefullWorkflow.DataAccess.Json
                 Context = new JsonContext(connectionString);
         }
 
-        public Dictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        public IDictionary<Tid, TEntity> Set<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        {
+            return Context.Set<TEntity, Tid>();
+        }
+
+        public IDictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
             return Context.GetDataSet<TEntity, Tid>();
         }
@@ -33,7 +38,12 @@ namespace StatefullWorkflow.DataAccess.Json
             return Context.DataSetExists<TEntity, Tid>();
         }
 
-        public void SaveChanges<TEntity, Tid>(Dictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
+        public void SaveChanges()
+        {
+            Context.SaveDataSets();
+        }
+
+        public void SaveChanges<TEntity, Tid>(IDictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
         {
             Context.SaveDataSet<TEntity, Tid>(entities);
         }

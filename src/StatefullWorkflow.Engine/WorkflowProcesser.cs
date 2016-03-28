@@ -23,7 +23,7 @@ namespace StatefullWorkflow.Engine
 
             if (id.HasValue)
             {
-                repo.SaveChanges();
+                unitOfWork.SaveChanges();
                 var statePersistance = new InstanceStatePersistence(instance.Id, unitOfWork);
                 var stateMachine = ConfigureStateMachine(workflow, statePersistance, unitOfWork);
                 return new InstanceManager(instance, workflow, stateMachine, statePersistance, unitOfWork);

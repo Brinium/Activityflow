@@ -19,7 +19,7 @@ namespace StatefullWorkflow.DataAccess
         {
         }
 
-        protected static int GenerateId(Dictionary<int, StateTransition> entities)
+        protected static int GenerateId(IDictionary<int, StateTransition> entities)
         {
             int id = 1;
             while (entities.ContainsKey(id))

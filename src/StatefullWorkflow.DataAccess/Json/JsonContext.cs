@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using StatefullWorkflow.DataAccess.IO;
 using StatefullWorkflow.Entities;
 using System.Threading.Tasks;
+using System.Collections;
+using System.Reflection;
 
 namespace StatefullWorkflow.DataAccess.Json
 {
     public class JsonContext
     {
         public IFileAccessor FileAccess { get; set; }
-
         public string ConnectionString { get; set; }
-
         public List<JsonConverter> Converters { get; set; }
+        readonly IDictionary<string, object> _dataSets = new Dictionary<string, object>();
+        public IDictionary<string, object> DataSets { get { return _dataSets; } }
 
         public JsonContext()
         {
@@ -36,6 +37,30 @@ namespace StatefullWorkflow.DataAccess.Json
             Converters = converters;
         }
 
+        public IDictionary<Tid, TEntity> Set<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        {
+            var className = typeof(TEntity).Name;
+
+            object result;
+            if (!_dataSets.TryGetValue(className, out result))
+            {
+                result = GetDataSet<TEntity, Tid>();
+                _dataSets.Add(className, result);
+            }
+
+            return (IDictionary<Tid, TEntity>)result;
+        }
+
+        public bool DataSetLoaded<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        {
+            var className = typeof(TEntity).Name;
+            if (_dataSets.ContainsKey(className))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool DataSetExists<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
             var exists = false;
@@ -43,45 +68,85 @@ namespace StatefullWorkflow.DataAccess.Json
             task.Wait();
             return exists;
         }
+        
+        public bool SaveDataSets()
+        {
+            var saved = _dataSets.Count == 0;
+            foreach (var set in _dataSets)
+            {
+                var className = set.Key;
+                var entities = set.Value;
 
-        public bool SaveDataSet<TEntity, Tid>(Dictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
+                if (typeof(IDictionary).IsAssignableFrom(entities.GetType()))
+                {
+                    IDictionary idict = (IDictionary)entities;
+                    var entitiesList = idict.Values;
+                    var json = SerializeJsonEntityArray(entitiesList);
+
+                    var task = Task.Run(async () => saved = await FileAccess.SaveToFile(ConnectionString, className, json));
+                    task.Wait();
+                }
+            }
+            return saved;
+        }
+
+        public bool SaveDataSet<TEntity, Tid>(IDictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
         {
             var entitiesList = entities.Values.ToList();
-            var json = SerializeJsonEntityArray<TEntity, Tid>(entitiesList);
+            var json = SerializeJsonEntityArray(entitiesList);
+
             var saved = false;
             var task = Task.Run(async () => saved = await FileAccess.SaveToFile<TEntity, Tid>(ConnectionString, json));
             task.Wait();
             return saved;
         }
 
-        public Dictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        public IDictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
         {
-            string json = string.Empty;
-            if(!DataSetExists<TEntity, Tid>())
+            IDictionary<Tid, TEntity> entityDic = new Dictionary<Tid, TEntity>();
+            if (!DataSetLoaded<TEntity, Tid>())
             {
-                var created = false;
-                var createTask = Task.Run(async () => created = await FileAccess.SaveToFile<TEntity, Tid>(ConnectionString, "[]"));
-                createTask.Wait();
-            }
-            var readTask = Task.Run(async () => json = await FileAccess.ReadFile<TEntity, Tid>(ConnectionString));
-            readTask.Wait();
-
-            var entities = DeserializeJsonEntityArray<TEntity, Tid>(json);
-            var entityDic = new Dictionary<Tid, TEntity>();
-            foreach (var item in entities)
-            {
-                if (!entityDic.ContainsKey(item.Id))
+                if (!DataSetExists<TEntity, Tid>())
                 {
-                    entityDic.Add(item.Id, item);
+                    var created = false;
+                    var createTask = Task.Run(async () => created = await FileAccess.SaveToFile<TEntity, Tid>(ConnectionString, "[]"));
+                    createTask.Wait();
                 }
+                string json = string.Empty;
+
+                var readTask = Task.Run(async () => json = await FileAccess.ReadFile<TEntity, Tid>(ConnectionString));
+                readTask.Wait();
+
+                var entities = DeserializeJsonEntityArray<TEntity, Tid>(json);
+                foreach (var item in entities)
+                {
+                    if (!entityDic.ContainsKey(item.Id))
+                    {
+                        entityDic.Add(item.Id, item);
+                    }
+                }
+            }
+            else
+            {
+                entityDic = Set<TEntity, Tid>();
             }
             return entityDic;
         }
 
-        public string SerializeJsonEntityArray<TEntity, Tid>(List<TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
+        public string SerializeJsonEntityArray(ICollection entities)
         {
             var json = string.Empty;
-            if(Converters != null && Converters.Count > 0)
+            if (Converters != null && Converters.Count > 0)
+                json = JsonConvert.SerializeObject(entities, Converters.ToArray());
+            else
+                json = JsonConvert.SerializeObject(entities);
+            return json;
+        }
+
+        public string SerializeJsonEntityArray<TEntity>(List<TEntity> entities)
+        {
+            var json = string.Empty;
+            if (Converters != null && Converters.Count > 0)
                 json = JsonConvert.SerializeObject(entities, Converters.ToArray());
             else
                 json = JsonConvert.SerializeObject(entities);

@@ -1,8 +1,8 @@
 ﻿using StatefullWorkflow.Entities;
 
-namespace StatefullWorkflow.DataAccess.Test
+namespace StatefullWorkflow.DataAccess.Tests
 {
-    public class TestEntityOne : Entity<int>
+    public class TestEntityTwo : Entity<int>
     {
         public string FieldA { get; set; }
 

@@ -18,7 +18,7 @@ namespace StatefullWorkflow.DataAccess
 
     public class WorkflowInstanceRepository : JsonRepository<WorkflowInstance, int>, IWorkflowInstanceRepository
     {
-        protected static int GenerateId(Dictionary<int, WorkflowInstance> entities)
+        protected static int GenerateId(IDictionary<int, WorkflowInstance> entities)
         {
             int id = 1;
             while (entities.ContainsKey(id))
