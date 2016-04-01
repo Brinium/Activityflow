@@ -4,10 +4,8 @@
     "uwp.10.0.app": {}
   },
   "dependencies": {
-    "Inflector.Portable": "1.2.0",
     "Microsoft.NETCore": "5.0.0",
-    "Microsoft.NETCore.Portable.Compatibility": "1.0.0",
-    "Newtonsoft.Json": "8.0.3"
+    "Microsoft.NETCore.Portable.Compatibility": "1.0.0"
   },
   "frameworks": {
     "dotnet": {

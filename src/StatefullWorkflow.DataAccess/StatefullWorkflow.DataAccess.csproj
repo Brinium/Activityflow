@@ -43,8 +43,8 @@
     <Compile Include="Json\JsonRepository.cs" />
     <Compile Include="Json\JsonUnitOfWork.cs" />
     <Compile Include="RepositoryHelper.cs" />
-    <Compile Include="StateTransitionRepository.cs" />
     <Compile Include="StateActivityRepository.cs" />
+    <Compile Include="StateTransitionRepository.cs" />
     <Compile Include="StateRepository.cs" />
     <Compile Include="ActivityRepository.cs" />
     <Compile Include="WorkflowInstanceRepository.cs" />

@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="StatefullWorkflow.Config.WebService.StatefullConfig" CodeBehind="StatefullConfig.svc.cs" %>

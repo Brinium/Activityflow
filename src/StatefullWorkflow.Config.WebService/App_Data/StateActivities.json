@@ -1,5 +1,6 @@
 ﻿[
   {
+    "Id" : 1,
     "WorkflowId": 1,
     "StateId": 1,
     "DisplayName": "Request Promotion Form",
@@ -7,6 +8,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 2,
     "WorkflowId": 1,
     "StateId": 3,
     "DisplayName": "Enter Data To Promotion Form",
@@ -14,6 +16,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 3,
     "WorkflowId": 1,
     "StateId": 3,
     "DisplayName": "Submit Promotion Form",
@@ -21,6 +24,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 4,
     "WorkflowId": 1,
     "StateId": 4,
     "DisplayName": "Manager Review Promotion Form",
@@ -28,6 +32,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 5,
     "WorkflowId": 1,
     "StateId": 4,
     "DisplayName": "Manager Deny Promotion",
@@ -35,6 +40,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 6,
     "WorkflowId": 1,
     "StateId": 4,
     "DisplayName": "Manager Approve Promotion",
@@ -42,6 +48,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 7,
     "WorkflowId": 1,
     "StateId": 5,
     "DisplayName": "Director Review Promotion Form",
@@ -49,6 +56,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 8,
     "WorkflowId": 1,
     "StateId": 5,
     "DisplayName": "Director Deny Promotion",
@@ -56,6 +64,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 9,
     "WorkflowId": 1,
     "StateId": 5,
     "DisplayName": "Director Approve Promotion",
@@ -63,6 +72,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 10,
     "WorkflowId": 1,
     "StateId": 6,
     "DisplayName": "Cry",
@@ -70,6 +80,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 11,
     "WorkflowId": 1,
     "StateId": 6,
     "DisplayName": "Console Applicant",
@@ -77,6 +88,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id" : 12,
     "WorkflowId": 1,
     "StateId": 7,
     "DisplayName": "Celebrate",
@@ -84,6 +96,7 @@
     "AuthorisedUsers": [ "", "" ]
   },
   {
+    "Id": 13,
     "WorkflowId": 1,
     "StateId": 7,
     "DisplayName": "Congragulate Applicant",

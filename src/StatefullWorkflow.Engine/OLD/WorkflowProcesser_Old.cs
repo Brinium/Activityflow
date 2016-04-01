@@ -11,15 +11,15 @@ namespace StatefullWorkflow.Engine
 {
     public class WorkflowProcesser_Old
     {
-        private StateMachine<string, string> stateMachine;
-        private Step step;
+        //private StateMachine<string, string> stateMachine;
+        //private Step step;
         //private FilterRegistry<Step>filterRegistry;
         //private Pipeline<Step> pipeline;
-        private Workflow workflow;
+        //private Workflow workflow;
 
         public WorkflowProcesser_Old(Step theStep, /*FilterRegistry<Step> registry, */Workflow workflow)
         {
-            this.step = theStep;
+            //this.step = theStep;
             //this.filterRegistry = registry;
             //this.workflow = workflow;
 
@@ -106,20 +106,20 @@ namespace StatefullWorkflow.Engine
         /// Fetch the statemachines current state
         /// </summary>
         /// <returns>Workflow state as string</returns>
-        public string GetCurrentState()
-        {
-            return this.stateMachine.State;
-        }
+        //public string GetCurrentState()
+        //{
+        //    return this.stateMachine.State;
+        //}
 
         /// <summary>
         /// Fetch the errors, if any, encountered while processing the 
         /// users answer
         /// </summary>
         /// <returns>Errors as List of strings</returns>
-        public List<string> GetErrorList()
-        {
-            return this.step.ErrorList;
-        }
+        //public List<string> GetErrorList()
+        //{
+        //    return this.step.ErrorList;
+        //}
 
         /// <summary>
         /// Given the current Step, execute the StateMachine to transition
@@ -127,11 +127,11 @@ namespace StatefullWorkflow.Engine
         /// </summary>
         /// <param name="input">Current step as Step</param>
         /// <returns></returns>
-        private Step ExecuteTriggerFilter(Step input)
-        {
-            this.stateMachine.Fire(input.Answer);
+        //private Step ExecuteTriggerFilter(Step input)
+        //{
+        //    this.stateMachine.Fire(input.Answer);
 
-            return input;
-        }
+        //    return input;
+        //}
     }
 }

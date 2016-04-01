@@ -1,0 +1,3 @@
+var jqxhr = $.get( "http://localhost:63869/StatefullConfig.svc/GetWorkflow?workflowId=1", function(data) { alert( "success" );  alert(data);}).done(function(data) { alert( "second success" ); alert(data); }).fail(function() { alert( "error" ); }).always(function() { alert( "finished" ); });
+
+var jsdom = require('jsdom').jsdom, myWindow = jsdom().createWindow(), $ = require('jQuery'), jq = require('jQuery').create(), jQuery = require('jQuery').create(myWindow);

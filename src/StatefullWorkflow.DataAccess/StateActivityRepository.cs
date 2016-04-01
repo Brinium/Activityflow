@@ -10,6 +10,7 @@ namespace StatefullWorkflow.DataAccess
 {
     public partial interface IStateActivityRepository : IRepository<StateActivity, int>
     {
+        IList<StateActivity> GetByWorkflow(int workflowId);
     }
 
     public class StateActivityRepository : JsonRepository<StateActivity, int>, IStateActivityRepository
@@ -27,6 +28,11 @@ namespace StatefullWorkflow.DataAccess
                 id++;
             }
             return id;
+        }
+
+        public IList<StateActivity> GetByWorkflow(int workflowId)
+        {
+            return Where(a => a.WorkflowId == workflowId).ToList();
         }
     }
 }

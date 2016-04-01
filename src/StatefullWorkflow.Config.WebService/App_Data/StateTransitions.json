@@ -1,0 +1,58 @@
+﻿[
+  {
+    "Id": 1,
+    "Trigger": "DesirePromotion",
+    "DisplayName": "Desire Promotion",
+    "WorkflowId": 1,
+    "StateId": 1,
+    "TargetStateId": 2
+  },
+  {
+    "Id": 2,
+    "Trigger": "RequestInfo",
+    "DisplayName": "Request Info",
+    "WorkflowId": 1,
+    "StateId": 2,
+    "TargetStateId": 3
+  },
+  {
+    "Id": 3,
+    "Trigger": "Complete",
+    "DisplayName": "Complete",
+    "WorkflowId": 1,
+    "StateId": 3,
+    "TargetStateId": 4
+  },
+  {
+    "Id": 4,
+    "Trigger": "ManagerDeny",
+    "DisplayName": "Manager Deny",
+    "WorkflowId": 1,
+    "StateId": 4,
+    "TargetStateId": 6
+  },
+  {
+    "Id": 5,
+    "Trigger": "ManagerApprove",
+    "DisplayName": "Manager Approve",
+    "WorkflowId": 1,
+    "StateId": 4,
+    "TargetStateId": 5
+  },
+  {
+    "Id": 6,
+    "Trigger": "DirectorDeny",
+    "DisplayName": "Director Deny",
+    "WorkflowId": 1,
+    "StateId": 5,
+    "TargetStateId": 6
+  },
+  {
+    "Id": 7,
+    "Trigger": "DirectorApprove",
+    "DisplayName": "Director Approve",
+    "WorkflowId": 1,
+    "StateId": 5,
+    "TargetStateId": 7
+  }
+]

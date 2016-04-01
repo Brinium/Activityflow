@@ -8,6 +8,7 @@ namespace StatefullWorkflow.Entities
 {
     public class Activity : Entity<int>
     {
+        public int WorkflowId { get; set; }
         public string DisplayName { get; set; }
 
         public List<string> AuthorisedRoles { get; set; }
