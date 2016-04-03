@@ -42,10 +42,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatefullWorkflow.Config.We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stateless", "Stateless\Stateless.csproj", "{A15EEC02-60EC-4705-A58B-A6ECD55A9628}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatefullWorkflow.Config.WebService.Test", "StatefullWorkflow.Config.WebService.Test\StatefullWorkflow.Config.WebService.Test.csproj", "{0D98CE67-CCC0-4724-BF45-2029494962A5}"
-	ProjectSection(ProjectDependencies) = postProject
-		{EF02C24E-7974-4D11-8B37-C9E45965AF3F} = {EF02C24E-7974-4D11-8B37-C9E45965AF3F}
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatefullWorkflow.Config.WebService.Tests", "StatefullWorkflow.Config.WebService.Tests\StatefullWorkflow.Config.WebService.Tests.csproj", "{0D98CE67-CCC0-4724-BF45-2029494962A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
