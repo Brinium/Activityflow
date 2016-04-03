@@ -37,21 +37,21 @@ namespace StatefullWorkflow.DataAccess.Json
             Converters = converters;
         }
 
-        public IDictionary<Tid, TEntity> Set<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        public IDictionary<string, TEntity> Set<TEntity>() where TEntity : Entity
         {
             var className = typeof(TEntity).Name;
 
             object result;
             if (!_dataSets.TryGetValue(className, out result))
             {
-                result = GetDataSet<TEntity, Tid>();
+                result = GetDataSet<TEntity>();
                 _dataSets.Add(className, result);
             }
 
-            return (IDictionary<Tid, TEntity>)result;
+            return (IDictionary<string, TEntity>)result;
         }
 
-        public bool DataSetLoaded<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        public bool DataSetLoaded<TEntity>() where TEntity : Entity
         {
             var className = typeof(TEntity).Name;
             if (_dataSets.ContainsKey(className))
@@ -61,10 +61,10 @@ namespace StatefullWorkflow.DataAccess.Json
             return false;
         }
 
-        public bool DataSetExists<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        public bool DataSetExists<TEntity>() where TEntity : Entity
         {
             var exists = false;
-            var task = Task.Run(async () => exists = await FileAccess.FileExists<TEntity, Tid>(ConnectionString));
+            var task = Task.Run(async () => exists = await FileAccess.FileExists<TEntity>(ConnectionString));
             task.Wait();
             return exists;
         }
@@ -90,34 +90,34 @@ namespace StatefullWorkflow.DataAccess.Json
             return saved;
         }
 
-        public bool SaveDataSet<TEntity, Tid>(IDictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct
+        public bool SaveDataSet<TEntity>(IDictionary<string, TEntity> entities) where TEntity : Entity
         {
             var entitiesList = entities.Values.ToList();
             var json = SerializeJsonEntityArray(entitiesList);
 
             var saved = false;
-            var task = Task.Run(async () => saved = await FileAccess.SaveToFile<TEntity, Tid>(ConnectionString, json));
+            var task = Task.Run(async () => saved = await FileAccess.SaveToFile<TEntity>(ConnectionString, json));
             task.Wait();
             return saved;
         }
 
-        public IDictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct
+        public IDictionary<string, TEntity> GetDataSet<TEntity>() where TEntity : Entity
         {
-            IDictionary<Tid, TEntity> entityDic = new Dictionary<Tid, TEntity>();
-            if (!DataSetLoaded<TEntity, Tid>())
+            IDictionary<string, TEntity> entityDic = new Dictionary<string, TEntity>();
+            if (!DataSetLoaded<TEntity>())
             {
-                if (!DataSetExists<TEntity, Tid>())
+                if (!DataSetExists<TEntity>())
                 {
                     var created = false;
-                    var createTask = Task.Run(async () => created = await FileAccess.SaveToFile<TEntity, Tid>(ConnectionString, "[]"));
+                    var createTask = Task.Run(async () => created = await FileAccess.SaveToFile<TEntity>(ConnectionString, "[]"));
                     createTask.Wait();
                 }
                 string json = string.Empty;
 
-                var readTask = Task.Run(async () => json = await FileAccess.ReadFile<TEntity, Tid>(ConnectionString));
+                var readTask = Task.Run(async () => json = await FileAccess.ReadFile<TEntity>(ConnectionString));
                 readTask.Wait();
 
-                var entities = DeserializeJsonEntityArray<TEntity, Tid>(json);
+                var entities = DeserializeJsonEntityArray<TEntity>(json);
                 foreach (var item in entities)
                 {
                     if (!entityDic.ContainsKey(item.Id))
@@ -128,7 +128,7 @@ namespace StatefullWorkflow.DataAccess.Json
             }
             else
             {
-                entityDic = Set<TEntity, Tid>();
+                entityDic = Set<TEntity>();
             }
             return entityDic;
         }
@@ -153,7 +153,7 @@ namespace StatefullWorkflow.DataAccess.Json
             return json;
         }
 
-        public ICollection<TEntity> DeserializeJsonEntityArray<TEntity, Tid>(string json) where TEntity : Entity<Tid> where Tid : struct
+        public ICollection<TEntity> DeserializeJsonEntityArray<TEntity>(string json) where TEntity : Entity
         {
             var entities = JsonConvert.DeserializeObject<TEntity[]>(json);
             return new List<TEntity>(entities);

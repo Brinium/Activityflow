@@ -7,11 +7,11 @@ using StatefullWorkflow.Entities;
 
 namespace StatefullWorkflow.DataAccess
 {
-    public interface IRepository<TEntity, Tid> where TEntity : Entity<Tid> where Tid : struct
+    public interface IRepository<TEntity> where TEntity : Entity
     {
         IUnitOfWork UnitOfWork { get; set; }
 
-        TEntity Get(Tid id);
+        TEntity Get(string id);
 
         IQueryable<TEntity> All();
 
@@ -19,11 +19,11 @@ namespace StatefullWorkflow.DataAccess
 
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression);
 
-        void Delete(Tid id);
+        void Delete(string id);
 
-        Tid? Insert(TEntity entity);
+        string Insert(TEntity entity);
 
-        Tid? Update(TEntity entity);
+        string Update(TEntity entity);
 
         void Delete(Expression<Func<TEntity, bool>> expression);
     }

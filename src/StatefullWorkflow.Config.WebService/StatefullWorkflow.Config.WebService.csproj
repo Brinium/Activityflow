@@ -42,6 +42,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Inflector, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Inflector.Portable.1.2.0\lib\portable-net45+sl50+netcore45+wpa81+wp\Inflector.dll</HintPath>
       <Private>True</Private>
@@ -60,6 +64,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Reflection.TypeExtensions.4.0.0\lib\net46\System.Reflection.TypeExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -84,30 +92,35 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataContracts\CompositeType.cs" />
+    <Compile Include="DataContracts\DataContractExtensions.cs" />
     <Compile Include="DataContracts\StateDC.cs" />
-    <Compile Include="DataContracts\StateActivity.cs" />
+    <Compile Include="DataContracts\StateActivityDC.cs" />
     <Compile Include="DataContracts\StateTransitionDC.cs" />
+    <Compile Include="RepositoryHelper.cs" />
     <Compile Include="StatefullConfig.svc.cs">
       <DependentUpon>StatefullConfig.svc</DependentUpon>
     </Compile>
     <Compile Include="IStatefullConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataContracts\WorkflowDC.cs" />
+    <Compile Include="Validation\StateActivityValidation.cs" />
+    <Compile Include="Validation\StateTransitionValidation.cs" />
+    <Compile Include="Validation\StateValidation.cs" />
+    <Compile Include="Validation\WorkflowValidation.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="App_Data\StateActivities.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\States.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\StateTransitions.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\Workflows.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">

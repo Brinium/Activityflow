@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace StatefullWorkflow.Entities
 {
-    public class Activity : Entity<int>
+    public class Activity : Entity
     {
-        public int WorkflowId { get; set; }
+        public string WorkflowId { get; set; }
         public string DisplayName { get; set; }
 
         public List<string> AuthorisedRoles { get; set; }

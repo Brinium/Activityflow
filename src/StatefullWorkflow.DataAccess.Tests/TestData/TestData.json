@@ -1,7 +1,7 @@
 ﻿{
     "Workflows": [
 		{
-			"Name" : "RequestPromotion"
+			"Name" : "RequestPromotion",
 			"DisplayName" : "Request Promotion"
 		}],
     "States": [

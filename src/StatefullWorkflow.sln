@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "StatefullWorkflow.Config.Ui", "StatefullWorkflow.Config.Ui\", "{893C96E6-7F49-4583-83BF-FFF0B7B10D7C}"
 	ProjectSection(WebsiteProperties) = preProject
@@ -41,6 +41,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatefullWorkflow.Config.WebService", "StatefullWorkflow.Config.WebService\StatefullWorkflow.Config.WebService.csproj", "{EF02C24E-7974-4D11-8B37-C9E45965AF3F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stateless", "Stateless\Stateless.csproj", "{A15EEC02-60EC-4705-A58B-A6ECD55A9628}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatefullWorkflow.Config.WebService.Test", "StatefullWorkflow.Config.WebService.Test\StatefullWorkflow.Config.WebService.Test.csproj", "{0D98CE67-CCC0-4724-BF45-2029494962A5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF02C24E-7974-4D11-8B37-C9E45965AF3F} = {EF02C24E-7974-4D11-8B37-C9E45965AF3F}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +93,10 @@ Global
 		{A15EEC02-60EC-4705-A58B-A6ECD55A9628}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A15EEC02-60EC-4705-A58B-A6ECD55A9628}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A15EEC02-60EC-4705-A58B-A6ECD55A9628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D98CE67-CCC0-4724-BF45-2029494962A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D98CE67-CCC0-4724-BF45-2029494962A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D98CE67-CCC0-4724-BF45-2029494962A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D98CE67-CCC0-4724-BF45-2029494962A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,39 +10,39 @@ using System.Threading.Tasks;
 
 namespace StatefullWorkflow.Engine
 {
-    public static class WorkflowProcesser
+    public class WorkflowProcesser
     {
-        public static InstanceManager CreateWorkflowManager(Workflow workflow, IUnitOfWork unitOfWork)
+        public static InstanceManager CreateWorkflowManager(Workflow workflow, IRepositoryHelper repoHelper)
         {
             Enforce.ArgumentNotNull(workflow, nameof(workflow));
-            Enforce.ArgumentNotNull(unitOfWork, nameof(unitOfWork));
+            Enforce.ArgumentNotNull(repoHelper, nameof(repoHelper));
 
             var instance = new WorkflowInstance { WorkflowId = workflow.Id, CurrentStateId = workflow.StartState };
-            var repo = new WorkflowInstanceRepository(unitOfWork);
+            var repo = repoHelper.GetWorkflowInstanceRepository(repoHelper.GetUnitOfWork());
             var id = repo.Insert(instance);
 
-            if (id.HasValue)
+            if (!string.IsNullOrWhiteSpace(id))
             {
-                unitOfWork.SaveChanges();
-                var statePersistance = new InstanceStatePersistence(instance.Id, unitOfWork);
-                var stateMachine = ConfigureStateMachine(workflow, statePersistance, unitOfWork);
-                return new InstanceManager(instance, workflow, stateMachine, statePersistance, unitOfWork);
+                repoHelper.GetUnitOfWork().SaveChanges();
+                var statePersistance = new InstanceStatePersistence(instance.Id, repoHelper);
+                var stateMachine = ConfigureStateMachine(workflow, statePersistance, repoHelper);
+                return new InstanceManager(instance, workflow, stateMachine, statePersistance, repoHelper);
             }
             return null;
         }
 
-        public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow, InstanceStatePersistence statePersistance, IUnitOfWork unitOfWork)
+        public static StateMachine<State, string> ConfigureStateMachine(Workflow workflow, InstanceStatePersistence statePersistance, IRepositoryHelper repoHelper)
         {
             Enforce.ArgumentNotNull(workflow, nameof(workflow));
             Enforce.ArgumentNotNull(statePersistance, nameof(statePersistance));
-            Enforce.ArgumentNotNull(unitOfWork, nameof(unitOfWork));
+            Enforce.ArgumentNotNull(repoHelper, nameof(repoHelper));
 
             var stateMachine = new StateMachine<State, string>(statePersistance.GetCurrentState, statePersistance.SetCurrentState);
 
             //  Get a distinct list of states with a trigger from state configuration
             //  "State => Trigger => TargetState
-            var stateRepo = new StateRepository(unitOfWork);
-            var transitionRepo = new StateTransitionRepository(unitOfWork);
+            var stateRepo = repoHelper.GetStateRepository(repoHelper.GetUnitOfWork());
+            var transitionRepo = new StateTransitionRepository(repoHelper.GetUnitOfWork());
 
             var states = transitionRepo.Where(t => t.WorkflowId == workflow.Id).Select(t => stateRepo.Get(t.StateId)).Distinct().ToList();
             //var transitions = transitionRepo.Where(s => s.WorkflowId == workflow.Id).ToList();

@@ -1,91 +1,104 @@
 ﻿[
   {
-    "WorkflowId": 1,
-    "StateId": 1,
+    "Id": "6bfd9184-1236-4f68-88cf-82ecb5999806",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "c3a1f46c-6fcc-44ce-898c-a822f046f2c4",
     "DisplayName": "Request Promotion Form",
     "AuthorisedRoles": [ "Applicant", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 3,
+    "Id": "0f055f60-1613-42f8-960e-4091d98478c1",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "a0d0dfb9-c7af-412f-8e1b-a669fca95589",
     "DisplayName": "Enter Data To Promotion Form",
     "AuthorisedRoles": [ "Applicant", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 3,
+    "Id": "1f18a3d7-6474-4ad3-ab2e-fd02de1273a3",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "a0d0dfb9-c7af-412f-8e1b-a669fca95589",
     "DisplayName": "Submit Promotion Form",
     "AuthorisedRoles": [ "Applicant", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 4,
+    "Id": "9607e8a0-49b9-4a1a-a2c0-6f2c906ea78e",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "8afde442-e3f6-40c5-96a1-4fad55f3db23",
     "DisplayName": "Manager Review Promotion Form",
     "AuthorisedRoles": [ "Manager", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 4,
+    "Id": "532df316-0eed-4640-a8ed-90429a98aa01",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "8afde442-e3f6-40c5-96a1-4fad55f3db23",
     "DisplayName": "Manager Deny Promotion",
     "AuthorisedRoles": [ "Manager", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 4,
+    "Id": "f8948fa5-a7b6-489b-b221-b2374e059a3e",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "8afde442-e3f6-40c5-96a1-4fad55f3db23",
     "DisplayName": "Manager Approve Promotion",
     "AuthorisedRoles": [ "Manager", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 5,
+    "Id": "f60843e9-cc2f-4722-9b45-954b30289434",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "fca4fcd3-e6dc-4a7c-aa71-513655702ec9",
     "DisplayName": "Director Review Promotion Form",
     "AuthorisedRoles": [ "Director", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 5,
+    "Id": "ae1004f7-71b8-4477-8256-5a57689bc357",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "fca4fcd3-e6dc-4a7c-aa71-513655702ec9",
     "DisplayName": "Director Deny Promotion",
     "AuthorisedRoles": [ "Director", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 5,
+    "Id": "a259cd49-fcfa-4c62-9392-1b304fbd2040",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "fca4fcd3-e6dc-4a7c-aa71-513655702ec9",
     "DisplayName": "Director Approve Promotion",
     "AuthorisedRoles": [ "Director", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 6,
+    "Id": "03707ce7-2b12-4a4b-8eff-fe76a49afac7",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "a443be19-7e04-4aa8-a910-b9f4e45f68d2",
     "DisplayName": "Cry",
     "AuthorisedRoles": [ "Applicant", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 6,
+    "Id": "61e1e1e6-a6f1-4f11-9f49-3f715d1deec6",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "a443be19-7e04-4aa8-a910-b9f4e45f68d2",
     "DisplayName": "Console Applicant",
     "AuthorisedRoles": [ "Manager", "Director" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 7,
+    "Id": "811d4385-02fd-457a-99fe-5f2f52440c49",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "f9140737-fa1c-4a0d-8db8-dee2b9d0268d",
     "DisplayName": "Celebrate",
     "AuthorisedRoles": [ "Applicant", "" ],
     "AuthorisedUsers": [ "", "" ]
   },
   {
-    "WorkflowId": 1,
-    "StateId": 7,
+    "Id": "57e6e769-3f9a-4991-b9c4-ead98e321ecd",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "f9140737-fa1c-4a0d-8db8-dee2b9d0268d",
     "DisplayName": "Congragulate Applicant",
     "AuthorisedRoles": [ "Manager", "Director" ],
     "AuthorisedUsers": [ "", "" ]

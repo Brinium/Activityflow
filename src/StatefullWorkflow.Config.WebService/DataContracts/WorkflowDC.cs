@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using StatefullWorkflow.Entities;
 
@@ -8,48 +9,68 @@ namespace StatefullWorkflow.Config.WebService.DataContracts
     public class WorkflowDC
     {
         private Workflow _workflow;
-        
+
         [DataMember]
-        public int Id
+        public string Id
         {
             get { return _workflow.Id; }
-            set { _workflow.Id = value; }
+            set
+            {
+                if (_workflow == null) _workflow = new Workflow();
+                _workflow.Id = value;
+            }
         }
 
         [DataMember]
         public string DisplayName
         {
             get { return _workflow.DisplayName; }
-            set { _workflow.DisplayName = value; }
+            set
+            {
+                if (_workflow == null) _workflow = new Workflow();
+                _workflow.DisplayName = value;
+            }
         }
 
         [DataMember]
-        public int StartState
+        public string StartState
         {
             get { return _workflow.StartState; }
-            set { _workflow.StartState = value; }
+            set
+            {
+                if (_workflow == null) _workflow = new Workflow();
+                _workflow.StartState = value;
+            }
         }
 
         [DataMember]
-        public IList<State> States { get; set; }
+        public IList<StateDC> States { get; set; }
 
         [DataMember]
-        public IList<StateTransition> Transitions { get; set; }
+        public IList<StateTransitionDC> Transitions { get; set; }
 
         [DataMember]
-        public IList<StateActivity> Activities { get; set; }
+        public IList<StateActivityDC> Activities { get; set; }
 
         public WorkflowDC()
         {
-
+            _workflow = new Workflow();
+            States = new List<StateDC>();
+            Transitions = new List<StateTransitionDC>();
+            Activities = new List<StateActivityDC>();
         }
 
-        public WorkflowDC(Workflow workflow)
+        internal WorkflowDC(Workflow workflow)
         {
             _workflow = workflow;
-            States = new List<State>();
-            Transitions = new List<StateTransition>();
-            Activities = new List<StateActivity>();
+            States = new List<StateDC>();
+            Transitions = new List<StateTransitionDC>();
+            Activities = new List<StateActivityDC>();
+        }
+
+        internal Workflow GetWorkflow()
+        {
+            return _workflow;
         }
     }
 }

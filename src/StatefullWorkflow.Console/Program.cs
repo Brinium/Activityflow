@@ -7,25 +7,26 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog;
 using StatefullWorkflow.Engine;
-using StatefullWorkflow.DataAccess.Json;
 using StatefullWorkflow.DataAccess;
 
 namespace StatefullWorkFlow.Console
 {
     class Program
     {
+        static readonly IRepositoryHelper repoHelper = new RepositoryHelper("Data");
+
         //public static Logger logger = LogManager.GetConsole.WriteLine("Standard");
         static void Main(string[] args)
         {
-            var unitOfWork = new JsonUnitOfWork("Data");
-            var workflowRepo = new WorkflowRepository(unitOfWork);
+            var unitOfWork = repoHelper.GetUnitOfWork();
+            var workflowRepo = repoHelper.GetWorkflowRepository(unitOfWork);
 
-            var workflow = workflowRepo.Get(1);
+            var workflow = workflowRepo.Get("6656c1a5-8a85-4f6f-9657-04615a728bc7");
             //Persistence.CurrentWorkflowName = workflow.Name;
 
             System.Console.WriteLine("Current Workflow: " + workflow.DisplayName);
 
-            Persistence.CurrentInstanceManager = WorkflowProcesser.CreateWorkflowManager(workflow, unitOfWork);
+            Persistence.CurrentInstanceManager = WorkflowProcesser.CreateWorkflowManager(workflow, repoHelper);
 
             var dotGraph = Persistence.CurrentInstanceManager.StateMachine.ToDotGraph();
 

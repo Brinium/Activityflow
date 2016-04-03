@@ -8,31 +8,37 @@ using StatefullWorkflow.Entities;
 
 namespace StatefullWorkflow.DataAccess
 {
-    public partial interface IStateTransitionRepository : IRepository<StateTransition, int>
+    public partial interface IStateTransitionRepository : IRepository<StateTransition>
     {
-        IList<StateTransition> GetByWorkflow(int workflowId);
+        IList<StateTransition> GetByWorkflow(string workflowId);
+        void SetWorkflowStates(string workflowId, IList<StateTransition> stateTransition);
     }
 
-    public class StateTransitionRepository : JsonRepository<StateTransition, int>, IStateTransitionRepository
+    public class StateTransitionRepository : JsonRepository<StateTransition>, IStateTransitionRepository
     {
         public StateTransitionRepository(IUnitOfWork unitOfWork)
-            : base(unitOfWork, GenerateId)
+            : base(unitOfWork)
         {
         }
 
-        protected static int GenerateId(IDictionary<int, StateTransition> entities)
-        {
-            int id = 1;
-            while (entities.ContainsKey(id))
-            {
-                id++;
-            }
-            return id;
-        }
-
-        public IList<StateTransition> GetByWorkflow(int workflowId)
+        public IList<StateTransition> GetByWorkflow(string workflowId)
         {
             return Where(t => t.WorkflowId == workflowId).ToList();
+        }
+
+        public void SetWorkflowStates(string workflowId, IList<StateTransition> stateTransition)
+        {
+            var existing = GetByWorkflow(workflowId);
+
+            foreach (var item in existing)
+            {
+                Delete(item.Id);
+            }
+
+            foreach (var item in stateTransition)
+            {
+                Insert(item);
+            }
         }
     }
 }

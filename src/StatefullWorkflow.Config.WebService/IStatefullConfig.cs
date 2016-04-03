@@ -19,10 +19,15 @@ namespace StatefullWorkflow.Config.WebService
         string GetData(string value);
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        [WebGet(UriTemplate = "GetWorkflow?workflowId={workflowId}")]
+        WorkflowDC GetWorkflow(string workflowId);
 
         [OperationContract]
-        [WebGet(UriTemplate = "GetWorkflow?workflowId={workflowId}")]
-        WorkflowDC GetWorkflow(int workflowId);
+        [WebInvoke()]
+        bool UpdateWorkflow(WorkflowDC workflow);
+
+        [OperationContract]
+        [WebInvoke()]
+        bool InsertWorkflow(WorkflowDC workflow);
     }
 }

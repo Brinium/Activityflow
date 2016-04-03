@@ -8,49 +8,47 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StatefullWorkflow.Entities;
 using StatefullWorkflow.DataAccess.Exceptions;
+using StatefullWorkflow.Utilities;
 
 namespace StatefullWorkflow.DataAccess.Json
 {
-    public class JsonRepository<TEntity, Tid> : IRepository<TEntity, Tid> where TEntity : Entity<Tid> where Tid : struct
+    public class JsonRepository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
         public IUnitOfWork UnitOfWork { get; set; }
 
-        public IDictionary<Tid, TEntity> Entities { get; set; }
+        public IDictionary<string, TEntity> Entities { get; set; }
 
-        public Func<IDictionary<Tid, TEntity>, Tid> IdGenereator { get; set; }
-
-        public JsonRepository(IUnitOfWork unitOfWork, Func<IDictionary<Tid, TEntity>, Tid> idGenerator)
+        public JsonRepository(IUnitOfWork unitOfWork)
         {
             UnitOfWork = unitOfWork;
-            Entities = UnitOfWork.Set<TEntity, Tid>();
-            IdGenereator = idGenerator;
+            Entities = UnitOfWork.Set<TEntity>();
         }
 
-        public Tid? Insert(TEntity entity)
+        public string Insert(TEntity entity)
         {
-            if (entity == null)
-                return null;
+            Enforce.ArgumentNotNull(entity, "entity");
 
-            var newId = GenerateId();
-            entity.Id = newId;
+            if (string.IsNullOrWhiteSpace(entity.Id) || Entities.ContainsKey(entity.Id))
+            {
+                entity.Id = GenerateNewId();
+            }
 
-            if (!Entities.ContainsKey(newId))
+            if (!Entities.ContainsKey(entity.Id))
             {
                 Entities.Add(entity.Id, entity);
             }
             else
             {
-                throw new DataAccessException();
+                throw new DataAccessException("Cannot insert an entity without an ID");
             }
             return entity.Id;
         }
 
-        public Tid? Update(TEntity entity)
+        public string Update(TEntity entity)
         {
-            if (entity == null)
-                return null;
+            Enforce.ArgumentNotNull(entity, "entity");
 
-            if (Entities.ContainsKey(entity.Id))
+            if (!string.IsNullOrWhiteSpace(entity.Id) && Entities.ContainsKey(entity.Id))
             {
                 Entities[entity.Id] = entity;
             }
@@ -61,15 +59,19 @@ namespace StatefullWorkflow.DataAccess.Json
             return entity.Id;
         }
 
-        public TEntity Get(Tid id)
+        public TEntity Get(string id)
         {
+            Enforce.ArgumentNotNull(id, "id");
+
             if (Entities.ContainsKey(id))
                 return Entities[id];
             return null;
         }
 
-        public void Delete(Tid id)
+        public void Delete(string id)
         {
+            Enforce.ArgumentNotNull(id, "id");
+
             if (Entities.ContainsKey(id))
                 Entities.Remove(id);
         }
@@ -81,11 +83,15 @@ namespace StatefullWorkflow.DataAccess.Json
 
         public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> expression)
         {
+            Enforce.ArgumentNotNull(expression, "expression");
+
             return All().Where(expression);
         }
 
         public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> expression)
         {
+            Enforce.ArgumentNotNull(expression, "expression");
+
             var result = All().FirstOrDefault(expression);
             if (result == null)
                 return null;
@@ -94,16 +100,23 @@ namespace StatefullWorkflow.DataAccess.Json
 
         public void Delete(Expression<Func<TEntity, bool>> expression)
         {
+            Enforce.ArgumentNotNull(expression, "expression");
+
             var result = Where(expression).ToList();
             foreach (var item in result)
             {
                 Entities.Remove(item.Id);
             }
         }
-        
-        private Tid GenerateId()
+
+        protected string GenerateNewId()
         {
-            return IdGenereator(Entities);
+            var id = Guid.NewGuid().ToString();
+            while (FirstOrDefault(e => e.Id == id) != null)
+            {
+                id = Guid.NewGuid().ToString();
+            }
+            return id;
         }
     }
 }

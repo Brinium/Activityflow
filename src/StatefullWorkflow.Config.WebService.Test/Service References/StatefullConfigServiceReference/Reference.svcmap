@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="74455ea8-e8ef-4214-811f-3fbcb0ae10c6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:63869/StatefullConfig.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="StatefullConfig.xsd" MetadataType="Schema" ID="2eb286ad-b1ea-4012-8f84-53b274d9d6a2" SourceId="1" SourceUrl="http://localhost:63869/StatefullConfig.svc?xsd=xsd2" />
+    <MetadataFile FileName="StatefullConfig.wsdl" MetadataType="Wsdl" ID="94428263-24bc-4e54-a71f-0f1e00da7ed9" SourceId="1" SourceUrl="http://localhost:63869/StatefullConfig.svc?wsdl" />
+    <MetadataFile FileName="StatefullConfig1.xsd" MetadataType="Schema" ID="c0fee39c-c62f-40bf-8d57-c70dc2e3be58" SourceId="1" SourceUrl="http://localhost:63869/StatefullConfig.svc?xsd=xsd3" />
+    <MetadataFile FileName="StatefullConfig2.xsd" MetadataType="Schema" ID="f29dfbca-19a0-4a45-92fb-dc63af2f1cad" SourceId="1" SourceUrl="http://localhost:63869/StatefullConfig.svc?xsd=xsd0" />
+    <MetadataFile FileName="StatefullConfig.disco" MetadataType="Disco" ID="59166f91-0f3d-42e2-8ed1-f9be53542272" SourceId="1" SourceUrl="http://localhost:63869/StatefullConfig.svc?disco" />
+    <MetadataFile FileName="StatefullConfig3.xsd" MetadataType="Schema" ID="ac3b4753-9944-4a57-b20d-4b571150c38e" SourceId="1" SourceUrl="http://localhost:63869/StatefullConfig.svc?xsd=xsd1" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

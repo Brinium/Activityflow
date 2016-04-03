@@ -1,65 +1,51 @@
 ﻿[
-	{
-		"Id" : 1,
-		"WorkflowId" : 1,
-		"Name": "Start",
-		"DisplayName": "Start",
-		"InitialState": true,
-		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
-		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-	},
-	{
-		"Id" : 2,
-		"WorkflowId" : 1,
-		"Name": "ManagerConsult",
-		"DisplayName": "Manager Consult",
-		"InitialState": false,
-		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
-		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-	},
-	{
-		"Id" : 3,
-		"WorkflowId" : 1,
-		"Name": "RequestPromotionForm",
-		"DisplayName": "Request Promotion Form",
-		"InitialState": false,
-		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
-		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-	},
-	{
-		"Id" : 4,
-		"WorkflowId" : 1,
-		"Name": "ManagerReview",
-		"DisplayName": "Manager Review",
-		"InitialState": false,
-		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
-		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-	},
-	{
-		"Id" : 5,
-		"WorkflowId" : 1,
-		"Name": "DirectorReview",
-		"DisplayName": "Director Review",
-		"InitialState": false,
-		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
-		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-	},
-	{
-		"Id" : 6,
-		"WorkflowId" : 1,
-		"Name": "PromotionDenied",
-		"DisplayName": "Promotion Denied",
-		"InitialState": false,
-		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
-		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-	},
-	{
-		"Id" : 7,
-		"WorkflowId" : 1,
-		"Name": "Promoted",
-		"DisplayName": "Promoted",
-		"InitialState": false,
-		"OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
-		"OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
-	}
+  {
+    "Id": "c3a1f46c-6fcc-44ce-898c-a822f046f2c4",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "DisplayName": "Start",
+    "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+    "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+  },
+  {
+    "Id": "f3be2ed6-cef7-4518-9ed5-36dde2faec37",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "DisplayName": "Manager Consult",
+    "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+    "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+  },
+  {
+    "Id": "a0d0dfb9-c7af-412f-8e1b-a669fca95589",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "DisplayName": "Request Promotion Form",
+    "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+    "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+  },
+  {
+    "Id": "8afde442-e3f6-40c5-96a1-4fad55f3db23",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "DisplayName": "Manager Review",
+    "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+    "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+  },
+  {
+    "Id": "fca4fcd3-e6dc-4a7c-aa71-513655702ec9",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "DisplayName": "Director Review",
+    "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+    "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+  },
+  {
+    "Id": "a443be19-7e04-4aa8-a910-b9f4e45f68d2",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "DisplayName": "Promotion Denied",
+    "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+    "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+  },
+  {
+    "Id": "f9140737-fa1c-4a0d-8db8-dee2b9d0268d",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "DisplayName": "Promoted",
+    "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+    "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+  }
 ]

@@ -22,7 +22,7 @@ namespace StatefullWorkflow.DataAccess.IO
             Pluralizer = new InflectorPluralizer();//DataEntityPluralizer();//PluralizationService.CreateService(CultureInfo.CurrentCulture);
         }
 
-        public async Task<bool> FileExists<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct
+        public async Task<bool> FileExists<TEntity>(string folder) where TEntity : Entity
         {
             if (String.IsNullOrEmpty(folder))
             {
@@ -43,7 +43,7 @@ namespace StatefullWorkflow.DataAccess.IO
             return exists == ExistenceCheckResult.FileExists;
         }
 
-        public async Task<string> ReadFile<TEntity, Tid>(string folder) where TEntity : Entity<Tid> where Tid : struct
+        public async Task<string> ReadFile<TEntity>(string folder) where TEntity : Entity
         {
             if (String.IsNullOrEmpty(folder))
             {
@@ -69,7 +69,7 @@ namespace StatefullWorkflow.DataAccess.IO
             return await file.ReadAllTextAsync();
         }
 
-        public async Task<bool> SaveToFile<TEntity, Tid>(string folder, string contents) where TEntity : Entity<Tid> where Tid : struct
+        public async Task<bool> SaveToFile<TEntity>(string folder, string contents) where TEntity : Entity
         {
             var className = typeof(TEntity).Name;
             return await SaveToFile(folder, className, contents);
@@ -97,7 +97,7 @@ namespace StatefullWorkflow.DataAccess.IO
             }
             catch (Exception ex)
             {
-                //NLog.LogManager.GetLogger("Standard").Error(ex, ex.Message);
+                var message = ex.Message;
                 throw;
             }
             return true;

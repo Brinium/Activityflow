@@ -7,7 +7,7 @@ using StatefullWorkflow.Entities;
 
 namespace StatefullWorkflow.DataAccess
 {
-    public class PagedResult<TEntity, Tid> where TEntity : Entity<Tid> where Tid : struct
+    public class PagedResult<TEntity> where TEntity : Entity
     {
         IEnumerable<TEntity> _items;
         int _totalCount;

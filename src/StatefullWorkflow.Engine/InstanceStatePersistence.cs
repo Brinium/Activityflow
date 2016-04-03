@@ -10,26 +10,27 @@ namespace StatefullWorkflow.Engine
 {
     public class InstanceStatePersistence
     {
-        public int InstanceId { get; set; }
-        public IUnitOfWork UnitOfWork { get; set; }
+        public string InstanceId { get; set; }
+        public IRepositoryHelper RepoHelper { get; set; }
 
-        public InstanceStatePersistence(int instanceId, IUnitOfWork unitOfWork)
+        public InstanceStatePersistence(string instanceId, IRepositoryHelper repoHelper)
         {
             InstanceId = instanceId;
-            UnitOfWork = unitOfWork;
+            RepoHelper = repoHelper;
         }
 
         public State GetCurrentState()
         {
-            var repo = new WorkflowInstanceRepository(UnitOfWork);
+            var repo = RepoHelper.GetWorkflowInstanceRepository(RepoHelper.GetUnitOfWork());
             return repo.GetCurrentState(InstanceId);
         }
 
         public void SetCurrentState(State state)
         {
-            var repo = new WorkflowInstanceRepository(UnitOfWork);
+            var unitOfWork = RepoHelper.GetUnitOfWork();
+            var repo = RepoHelper.GetWorkflowInstanceRepository(unitOfWork);
             repo.SetCurrentState(InstanceId, state);
-            UnitOfWork.SaveChanges();
+            unitOfWork.SaveChanges();
         }
     }
 }

@@ -35,7 +35,7 @@ namespace StatefullWorkflow.DataAccess.Json
                 }
                 else if (prop.Key == "WorkflowId")
                 {
-                    target.WorkflowId = (int)prop.Value;
+                    target.WorkflowId = (string)prop.Value;
                 }
                 else if (prop.Key == "OnEntryStateAction")
                 {

@@ -1,0 +1,72 @@
+﻿{
+  "Id": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+  "DisplayName": "Request Promotion",
+  "StartState": "b492b61c-0fb8-4f06-8430-6ac4e74c656b",
+  "Activities": [
+    {
+      "Id": "c3e82030-c669-442b-9d6c-5f8a57fd1e46",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "StateId": "b492b61c-0fb8-4f06-8430-6ac4e74c656b",
+      "DisplayName": "Request Promotion Form",
+      "AuthorisedRoles": [ "Applicant" ],
+      "AuthorisedUsers": [ ]
+    },
+    {
+      "Id": "72cc959f-f744-400f-99d8-2350d3bbefdc",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "StateId": "2c52ea6e-dfd1-481d-964a-2d04d123bf92",
+      "DisplayName": "Enter Data To Promotion Form",
+      "AuthorisedRoles": [ "Manager" ],
+      "AuthorisedUsers": [ ]
+    },
+    {
+      "Id": "e82bcf74-bb89-4590-a721-d1eb7b54e497",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "StateId": "2c52ea6e-dfd1-481d-964a-2d04d123bf92",
+      "DisplayName": "Submit Promotion Form",
+      "AuthorisedRoles": [ "Applicant", "Manager" ],
+      "AuthorisedUsers": [ ]
+    }
+  ],
+  "States": [
+    {
+      "Id": "b492b61c-0fb8-4f06-8430-6ac4e74c656b",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "DisplayName": "Start",
+      "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+      "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+    },
+    {
+      "Id": "3a4c89d4-db8f-4a74-9cbf-680036ecde1c",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "DisplayName": "Manager Consult",
+      "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+      "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+    },
+    {
+      "Id": "2c52ea6e-dfd1-481d-964a-2d04d123bf92",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "DisplayName": "Request Promotion Form",
+      "OnEntryStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnEntryStateAction",
+      "OnExitStateAction": "StatefullWorkFlow.Test,StatefullWorkFlow.Test.Services.WriteToConsoleService,OnExitStateAction"
+    }
+  ],
+  "Transitions": [
+    {
+      "Id": "81f6229a-c8d2-47fd-9622-29966cf7bace",
+      "Trigger": "DesirePromotion",
+      "DisplayName": "Desire Promotion",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "StateId": "b492b61c-0fb8-4f06-8430-6ac4e74c656b",
+      "TargetStateId": "3a4c89d4-db8f-4a74-9cbf-680036ecde1c"
+    },
+    {
+      "Id": "0ca703d3-274c-44c1-b249-2a9c309f9c1c",
+      "Trigger": "RequestInfo",
+      "DisplayName": "Request Info",
+      "WorkflowId": "9bf5d875-cea9-41b4-99f7-8b302b8248a8",
+      "StateId": "3a4c89d4-db8f-4a74-9cbf-680036ecde1c",
+      "TargetStateId": "2c52ea6e-dfd1-481d-964a-2d04d123bf92"
+    }
+  ]
+}

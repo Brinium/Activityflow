@@ -11,15 +11,15 @@ namespace StatefullWorkflow.DataAccess
     {
         string ConnectionString { get; set; }
 
-        IDictionary<Tid, TEntity> Set<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct;
+        IDictionary<string, TEntity> Set<TEntity>() where TEntity : Entity;
 
-        IDictionary<Tid, TEntity> GetDataSet<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct;
+        IDictionary<string, TEntity> GetDataSet<TEntity>() where TEntity : Entity;
 
-        bool TestConnectionCanOpen<TEntity, Tid>() where TEntity : Entity<Tid> where Tid : struct;
+        bool TestConnectionCanOpen<TEntity>() where TEntity : Entity;
 
         void SaveChanges();
 
-        void SaveChanges<TEntity, Tid>(IDictionary<Tid, TEntity> entities) where TEntity : Entity<Tid> where Tid : struct;
+        void SaveChanges<TEntity>(IDictionary<string, TEntity> entities) where TEntity : Entity;
 
         void Dispose();
     }

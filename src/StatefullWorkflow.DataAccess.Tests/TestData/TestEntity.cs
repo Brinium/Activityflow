@@ -2,7 +2,7 @@
 
 namespace StatefullWorkflow.DataAccess.Test
 {
-    public class TestEntityOne : Entity<int>
+    public class TestEntityOne : Entity
     {
         public string FieldA { get; set; }
 

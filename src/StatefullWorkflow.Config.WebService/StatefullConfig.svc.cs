@@ -1,4 +1,6 @@
-﻿using StatefullWorkflow.Config.WebService.DataContracts;
+﻿using FluentValidation.Results;
+using StatefullWorkflow.Config.WebService.DataContracts;
+using StatefullWorkflow.Config.WebService.Validation;
 using StatefullWorkflow.DataAccess;
 using StatefullWorkflow.DataAccess.Json;
 using StatefullWorkflow.Entities;
@@ -18,48 +20,39 @@ namespace StatefullWorkflow.Config.WebService
     public class StatefullConfig : IStatefullConfig
     {
         private readonly string _connectionString = "H:\\Sam\\GitHub\\StatefullWorkflow\\src\\StatefullWorkflow.Config.WebService\\bin\\App_Data";
+
         public string GetData(string value)
         {
             return string.Format("You entered: {0}", value);
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
-
-        public WorkflowDC GetWorkflow(int workflowId)
+        public WorkflowDC GetWorkflow(string workflowId)
         {
             Enforce.ArgumentGreaterThanZero(workflowId, "workflowId");
+
+            IRepositoryHelper repoHelper = new RepositoryHelper(_connectionString);
 
             WorkflowDC workflowDC = null;
 
             try
             {
-                var unitOfWork = new JsonUnitOfWork(_connectionString);
-                var wfRepo = new WorkflowRepository(unitOfWork);
+                var wfRepo = repoHelper.GetWorkflowRepository(repoHelper.GetUnitOfWork());
                 var workflow = wfRepo.Get(workflowId);
 
                 if (workflow != null)
                 {
                     workflowDC = new WorkflowDC(workflow);
 
-                    var stateRepo = new StateRepository(unitOfWork);
-                    workflowDC.States = stateRepo.GetByWorkflow(workflowId);
+                    var stateRepo = new StateRepository(repoHelper.GetUnitOfWork());
+                    workflowDC.States = stateRepo.GetByWorkflow(workflowId).ToDataContractList();
 
-                    var actRepo = new StateActivityRepository(unitOfWork);
-                    workflowDC.Activities = actRepo.GetByWorkflow(workflowId);
+                    var actRepo = new StateActivityRepository(repoHelper.GetUnitOfWork());
+                    workflowDC.Activities = actRepo.GetByWorkflow(workflowId).ToDataContractList();
 
-                    var tranRepo = new StateTransitionRepository(unitOfWork);
-                    workflowDC.Transitions = tranRepo.GetByWorkflow(workflowId);
+                    var tranRepo = new StateTransitionRepository(repoHelper.GetUnitOfWork());
+                    workflowDC.Transitions = tranRepo.GetByWorkflow(workflowId).ToDataContractList();
+
+                    repoHelper.GetUnitOfWork().SaveChanges();
                 }
             }
             catch (Exception ex)
@@ -68,6 +61,82 @@ namespace StatefullWorkflow.Config.WebService
                 throw;
             }
             return workflowDC;
+        }
+
+        public bool UpdateWorkflow(WorkflowDC workflow)
+        {
+            Enforce.ArgumentNotNull(workflow, "workflow");
+            Enforce.ArgumentNotNull(workflow.Id, "workflow.Id");
+            Enforce.ArgumentNotNull(workflow.StartState, "workflow.StartState");
+            Enforce.ArgumentNotNull(workflow.DisplayName, "workflow.DisplayName");
+            Enforce.ArgumentGreaterThanZero(workflow.States.Count, "workflow.States");
+
+            var validator = new WorkflowValidation();
+            ValidationResult results = validator.Validate(workflow);
+
+            IRepositoryHelper repoHelper = new RepositoryHelper(_connectionString);
+
+            try
+            {
+                var unitOfWork = new JsonUnitOfWork(_connectionString);
+                var wfRepo = new WorkflowRepository(unitOfWork);
+                var workflowUpdated = wfRepo.Update(workflow.GetWorkflow());
+
+                var stateRepo = new StateRepository(unitOfWork);
+                stateRepo.SetWorkflowStates(workflow.Id, workflow.States.ToRepoList());
+
+                var actRepo = new StateActivityRepository(unitOfWork);
+                actRepo.SetWorkflowStates(workflow.Id, workflow.Activities.ToRepoList());
+
+                var tranRepo = new StateTransitionRepository(unitOfWork);
+                tranRepo.SetWorkflowStates(workflow.Id, workflow.Transitions.ToRepoList());
+
+                repoHelper.GetUnitOfWork().SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                throw;
+            }
+            return true;
+        }
+
+        public bool InsertWorkflow(WorkflowDC workflow)
+        {
+            Enforce.ArgumentNotNull(workflow, "workflow");
+            Enforce.ArgumentNotNull(workflow.Id, "workflow.Id");
+            Enforce.ArgumentNotNull(workflow.StartState, "workflow.StartState");
+            Enforce.ArgumentNotNull(workflow.DisplayName, "workflow.DisplayName");
+            Enforce.ArgumentGreaterThanZero(workflow.States.Count, "workflow.States");
+
+            var validator = new WorkflowValidation();
+            ValidationResult results = validator.Validate(workflow);
+
+            IRepositoryHelper repoHelper = new RepositoryHelper(_connectionString);
+
+            try
+            {
+                var unitOfWork = repoHelper.GetUnitOfWork();
+                var wfRepo = repoHelper.GetWorkflowRepository(unitOfWork);
+                var workflowUpdated = wfRepo.Insert(workflow.GetWorkflow());
+
+                var stateRepo = repoHelper.GetStateRepository(unitOfWork);
+                stateRepo.SetWorkflowStates(workflow.Id, workflow.States.ToRepoList());
+
+                var actRepo = repoHelper.GetStateActivityRepository(unitOfWork);
+                actRepo.SetWorkflowStates(workflow.Id, workflow.Activities.ToRepoList());
+
+                var tranRepo = repoHelper.GetStateTransitionRepository(unitOfWork);
+                tranRepo.SetWorkflowStates(workflow.Id, workflow.Transitions.ToRepoList());
+
+                repoHelper.GetUnitOfWork().SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                var message = ex.Message;
+                throw;
+            }
+            return true;
         }
     }
 }

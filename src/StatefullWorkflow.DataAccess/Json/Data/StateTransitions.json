@@ -1,44 +1,58 @@
 ﻿[
   {
-    "WorkflowId": 1,
-    "StateId": 1,
-    "TriggerId": "DesirePromotion",
-    "TargetStateId": 2
+    "Id": "a24049a2-ba1a-466e-bd54-bb05823cefdb",
+    "Trigger": "DesirePromotion",
+    "DisplayName": "Desire Promotion",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "c3a1f46c-6fcc-44ce-898c-a822f046f2c4",
+    "TargetStateId": "f3be2ed6-cef7-4518-9ed5-36dde2faec37"
   },
   {
-    "WorkflowId": 1,
-    "StateId": 2,
-    "TriggerId": "RequestInfo",
-    "TargetStateId": 3
+    "Id": "16b95c66-d036-46a8-a840-0a5e2a8aa053",
+    "Trigger": "RequestInfo",
+    "DisplayName": "Request Info",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "f3be2ed6-cef7-4518-9ed5-36dde2faec37",
+    "TargetStateId": "a0d0dfb9-c7af-412f-8e1b-a669fca95589"
   },
   {
-    "WorkflowId": 1,
-    "StateId": 3,
-    "TriggerId": "Complete",
-    "TargetStateId": 4
+    "Id": "919c6070-a22a-4aea-97f2-4dffd5503ab0",
+    "Trigger": "Complete",
+    "DisplayName": "Complete",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "a0d0dfb9-c7af-412f-8e1b-a669fca95589",
+    "TargetStateId": "8afde442-e3f6-40c5-96a1-4fad55f3db23"
   },
   {
-    "WorkflowId": 1,
-    "StateId": 4,
-    "TriggerId": "Deny",
-    "TargetStateId": 6
+    "Id": "4e24492d-c181-426e-b37a-ba539298addc",
+    "Trigger": "ManagerDeny",
+    "DisplayName": "Manager Deny",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "8afde442-e3f6-40c5-96a1-4fad55f3db23",
+    "TargetStateId": "a443be19-7e04-4aa8-a910-b9f4e45f68d2"
   },
   {
-    "WorkflowId": 1,
-    "StateId": 4,
-    "TriggerId": "Approve",
-    "TargetStateId": 5
+    "Id": "e786c51e-6f8c-4c51-ac54-87042c60fda0",
+    "Trigger": "ManagerApprove",
+    "DisplayName": "Manager Approve",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "8afde442-e3f6-40c5-96a1-4fad55f3db23",
+    "TargetStateId": "fca4fcd3-e6dc-4a7c-aa71-513655702ec9"
   },
   {
-    "WorkflowId": 1,
-    "StateId": 5,
-    "TriggerId": "Deny",
-    "TargetStateId": 6
+    "Id": "cebb3823-b67e-4cb1-94bf-340e4e98e22e",
+    "Trigger": "DirectorDeny",
+    "DisplayName": "Director Deny",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "fca4fcd3-e6dc-4a7c-aa71-513655702ec9",
+    "TargetStateId": "a443be19-7e04-4aa8-a910-b9f4e45f68d2"
   },
   {
-    "WorkflowId": 1,
-    "StateId": 5,
-    "TriggerId": "Approve",
-    "TargetStateId": 7
+    "Id": "4cfeb7eb-b46a-4f1e-90aa-5f604b3aa102",
+    "Trigger": "DirectorApprove",
+    "DisplayName": "Director Approve",
+    "WorkflowId": "6656c1a5-8a85-4f6f-9657-04615a728bc7",
+    "StateId": "fca4fcd3-e6dc-4a7c-aa71-513655702ec9",
+    "TargetStateId": "f9140737-fa1c-4a0d-8db8-dee2b9d0268d"
   }
 ]

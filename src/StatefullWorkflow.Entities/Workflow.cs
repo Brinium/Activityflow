@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace StatefullWorkflow.Entities
 {
-    public class Workflow : Entity<int>
+    public class Workflow : Entity
     {
         public string DisplayName { get; set; }
 
-        public int StartState { get; set; }
+        public string StartState { get; set; }
 
         public Workflow()
         {

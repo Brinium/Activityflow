@@ -8,25 +8,15 @@ using StatefullWorkflow.Entities;
 
 namespace StatefullWorkflow.DataAccess
 {
-    public partial interface IWorkflowRepository : IRepository<Workflow, int>
+    public partial interface IWorkflowRepository : IRepository<Workflow>
     {
     }
 
-    public class WorkflowRepository : JsonRepository<Workflow, int>, IWorkflowRepository
+    public class WorkflowRepository : JsonRepository<Workflow>, IWorkflowRepository
     {
         public WorkflowRepository(IUnitOfWork unitOfWork)
-            : base(unitOfWork, GenerateId)
+            : base(unitOfWork)
         {
-        }
-
-        protected static int GenerateId(IDictionary<int, Workflow> entities)
-        {
-            int id = 1;
-            while (entities.ContainsKey(id))
-            {
-                id++;
-            }
-            return id;
         }
     }
 }

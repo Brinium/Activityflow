@@ -11,47 +11,73 @@ namespace StatefullWorkflow.Config.WebService.DataContracts
         private State _state;
 
         [DataMember]
-        public int Id
+        public string Id
         {
             get { return _state.Id; }
-            set { _state.Id = value; }
+            set
+            {
+                if (_state == null) _state = new State();
+                _state.Id = value;
+            }
         }
 
         [DataMember]
         public string DisplayName
         {
             get { return _state.DisplayName; }
-            set { _state.DisplayName = value; }
+            set
+            {
+                if (_state == null) _state = new State();
+                _state.DisplayName = value;
+            }
         }
 
         [DataMember]
-        public int WorkflowId
+        public string WorkflowId
         {
             get { return _state.WorkflowId; }
-            set { _state.WorkflowId = value; }
+            set
+            {
+                if (_state == null) _state = new State();
+                _state.WorkflowId = value;
+            }
         }
 
         [DataMember]
         public string OnEntryStateAction
         {
             get { return _state.OnEntryStateAction; }
-            set { _state.OnEntryStateAction = value; }
+            set
+            {
+                if (_state == null) _state = new State();
+                _state.OnEntryStateAction = value;
+            }
         }
 
         [DataMember]
         public string OnExitStateAction
         {
             get { return _state.OnExitStateAction; }
-            set { _state.OnExitStateAction = value; }
+            set
+            {
+                if (_state == null) _state = new State();
+                _state.OnExitStateAction = value;
+            }
         }
 
         public StateDC()
         {
+            _state = new State();
         }
 
-        public StateDC(State state)
+        internal StateDC(State state)
         {
             _state = state;
+        }
+
+        internal State GetState()
+        {
+            return _state;
         }
     }
 }

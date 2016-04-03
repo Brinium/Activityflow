@@ -9,40 +9,30 @@ using StatefullWorkflow.Entities;
 
 namespace StatefullWorkflow.DataAccess
 {
-    public partial interface IWorkflowInstanceRepository : IRepository<WorkflowInstance, int>
+    public partial interface IWorkflowInstanceRepository : IRepository<WorkflowInstance>
     {
-        State GetCurrentState(int instanceId);
+        State GetCurrentState(string instanceId);
 
-        void SetCurrentState(int instanceId, State state);
+        void SetCurrentState(string instanceId, State state);
     }
 
-    public class WorkflowInstanceRepository : JsonRepository<WorkflowInstance, int>, IWorkflowInstanceRepository
+    public class WorkflowInstanceRepository : JsonRepository<WorkflowInstance>, IWorkflowInstanceRepository
     {
-        protected static int GenerateId(IDictionary<int, WorkflowInstance> entities)
-        {
-            int id = 1;
-            while (entities.ContainsKey(id))
-            {
-                id++;
-            }
-            return id;
-        }
-
         public WorkflowInstanceRepository(IUnitOfWork unitOfWork)
-            : base(unitOfWork, GenerateId)
+            : base(unitOfWork)
         {
             StateRepo = new StateRepository(UnitOfWork);
         }
 
         private StateRepository StateRepo { get; set; }
 
-        public State GetCurrentState(int instanceId)
+        public State GetCurrentState(string instanceId)
         {
             var instance = Get(instanceId);
             return StateRepo.Get(instance.CurrentStateId);
         }
 
-        public void SetCurrentState(int instanceId, State state)
+        public void SetCurrentState(string instanceId, State state)
         {
             var instance = Get(instanceId);
             if (instance != null)

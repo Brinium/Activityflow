@@ -4,10 +4,10 @@ using System.Reflection;
 
 namespace StatefullWorkflow.Entities
 {
-    public class StateActivity : Entity<int>
+    public class StateActivity : Entity
     {
-        public int WorkflowId { get; set; }
-        public int StateId { get; set; }
+        public string WorkflowId { get; set; }
+        public string StateId { get; set; }
         public string DisplayName { get; set; }
 
         public IList<string> AuthorisedRoles { get; set; }
@@ -15,6 +15,8 @@ namespace StatefullWorkflow.Entities
 
         public StateActivity()
         {
+            AuthorisedRoles = new List<string>();
+            AuthorisedUsers = new List<string>();
         }
     }
 }
